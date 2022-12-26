@@ -1,0 +1,3 @@
+/home/vasco/Desktop/AED_G60/cmake-build-debug/CMakeFiles/AED_G60.dir
+/home/vasco/Desktop/AED_G60/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/vasco/Desktop/AED_G60/cmake-build-debug/CMakeFiles/rebuild_cache.dir
