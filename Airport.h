@@ -13,6 +13,7 @@ class Airport {
         float latitude;
         float longitude;
     public:
+        Airport();
         Airport(std::string code, std::string name, std::string city, std::string country, float latitude, float longitude);
 
         std::string getCode();

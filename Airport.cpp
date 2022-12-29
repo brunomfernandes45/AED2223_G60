@@ -1,5 +1,7 @@
 #include "Airport.h"
 
+Airport::Airport() { }
+
 Airport::Airport(std::string code, std::string name, std::string city, std::string country, float latitude, float longitude) {
     this -> code = code;
     this -> name = name;
