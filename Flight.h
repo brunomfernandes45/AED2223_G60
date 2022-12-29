@@ -1,5 +1,4 @@
 #include "AirLine.h"
-#include "Airport.h"
 
 #ifndef AED_G60_FLIGHT_H
 #define AED_G60_FLIGHT_H
@@ -7,18 +6,18 @@
 
 class Flight {
     private:
-        Airport source;
-        Airport target;
+        std::string source;
+        std::string target;
         AirLine airline;
     public:
-        Flight(Airport source, Airport target, AirLine airline);
+        Flight(std::string source, std::string target, AirLine airline);
 
-        Airport getSource();
-        Airport getTarget();
+        std::string getSource();
+        std::string getTarget();
         AirLine getAirline();
 
-        void setSource(Airport source);
-        void setTarget(Airport target);
+        void setSource(std::string source);
+        void setTarget(std::string target);
         void setAirline(AirLine airline);
 };
 

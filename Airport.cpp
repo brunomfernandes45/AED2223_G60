@@ -29,6 +29,9 @@ float Airport::getLatitude() {
 float Airport::getLongitude() {
     return longitude;
 }
+std::vector<Flight> Airport::getFlights() {
+    return flights;
+}
 
 void Airport::setCode(std::string code) {
     this -> code = code;
@@ -48,3 +51,12 @@ void Airport::setLatitude(float latitude) {
 void Airport::setLongitude(float longitude) {
     this -> longitude = longitude;
 }
+
+void Airport::setFlights(std::vector<Flight> flights) {
+    this -> flights = flights;
+}
+
+void Airport::addFlight(Flight flight) {
+    flights.push_back(flight);
+}
+

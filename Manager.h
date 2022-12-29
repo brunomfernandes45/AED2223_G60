@@ -1,6 +1,5 @@
-#include "AirLine.cpp"
-#include "Airport.cpp"
-#include "Flight.cpp"
+#include "AirLine.h"
+#include "Airport.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -14,13 +13,11 @@ class Manager {
     private:
         std::vector<AirLine> airlines;
         std::vector<Airport> airports;
-        std::vector<Flight> flights;
     public:
         void readAirlines();
         void readAirports();
         void readFlights();
         AirLine searchAirline(std::string code);
-        Airport searchAirport(std::string code);
 };
 
 #endif //AED2223_G60_MANAGER_H
