@@ -1,34 +1,26 @@
-
 #include <string>
 
-using namespace std;
 #ifndef AED_G60_AIRLINE_H
 #define AED_G60_AIRLINE_H
 
-
 class AirLine {
-private:
+    private:
+        std::string code;
+        std::string name;
+        std::string callsign;
+        std::string country;
+    public:
+        AirLine(std::string code, std::string name, std::string callsign, std::string country);
 
-    string code;
-    string name;
-    string callsign;
-    string country;
+        std::string getCode();
+        std::string getName();
+        std::string getCallsign();
+        std::string getCountry();
 
-    //Constructor
-    AirLine(string code, string name, string callsign,string country);
-
-    //getters
-    string getCode();
-    string getName();
-    string getCallsign();
-    string getCountry();
-
-    //setters
-    void setCode(string code);
-    void setName(string name);
-    void setCallsign(string callsign);
-    void setCountry(string country);
+        void setCode(std::string code);
+        void setName(std::string name);
+        void setCallsign(std::string callsign);
+        void setCountry(std::string country);
 };
-
 
 #endif //AED_G60_AIRLINE_H

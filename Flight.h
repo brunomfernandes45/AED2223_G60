@@ -1,5 +1,3 @@
-
-
 #ifndef AED_G60_FLIGHT_H
 #define AED_G60_FLIGHT_H
 

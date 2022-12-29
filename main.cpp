@@ -1,4 +1,8 @@
-int main(){
+#include "Manager.cpp"
 
-    return EXIT_SUCESS;
+int main() {
+    Manager manager;
+    manager.readAirlines();
+    manager.readAirports();
+    return 0;
 }
