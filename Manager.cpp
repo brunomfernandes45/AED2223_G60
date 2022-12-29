@@ -1,4 +1,7 @@
 #include "Manager.h"
+#include "Flight.cpp"
+#include "Airport.cpp"
+#include "AirLine.cpp"
 using namespace std;
 
 void Manager::readAirlines() {
@@ -52,26 +55,22 @@ void Manager::readFlights() {
             getline(iss, source, ',');
             getline(iss, target, ',');
             getline(iss, code);
-            Airport from = searchAirport(source);
-            Airport to = searchAirport(target);
             AirLine airline = searchAirline(code);
-            if (airline.getCode() == "") throw invalid_argument("Flight has an invalid airline");
-            Flight flight(from, to, airline);
-            flights.push_back(flight);
+            if (airline.getCode().empty()) throw invalid_argument("Flight has an invalid attribute");
+            Flight flight(source, target, airline);
+            for (auto &airport : airports) {
+                if (airport.getCode() == source){
+                    airport.addFlight(flight);
+                    break;
+                }
+            }
         }
     }
 }
 
 AirLine Manager::searchAirline(string code) {
-    for (auto it = airlines.begin(); it != airlines.end(); it++) {
-        if (it -> getCode() == code) return *it;
+    for (auto &airline : airlines) {
+        if (airline.getCode() == code) return airline;
     }
-    return AirLine();
-}
-
-Airport Manager::searchAirport(string code) {
-    for (auto it = airports.begin(); it != airports.end(); it++) {
-        if (it -> getCode() == code) return *it;
-    }
-    return Airport();
+    return {};
 }
