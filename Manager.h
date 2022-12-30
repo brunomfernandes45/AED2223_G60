@@ -25,10 +25,10 @@ class Manager {
 
 
         //menus
-        void fetchingmenu();
-        void mainmenu();
-        void flightsmenu();
-        void airportsmenu();
+        void fetchingMenu();
+        void mainMenu();
+        void flightsMenu();
+        void airportsMenu();
 
 };
 

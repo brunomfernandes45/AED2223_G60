@@ -21,5 +21,4 @@ class Flight {
         void setAirline(AirLine airline);
 };
 
-.
 #endif //AED_G60_FLIGHT_H
