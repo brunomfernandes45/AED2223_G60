@@ -81,45 +81,54 @@ Airport Manager::searchAirport(std::string code) {
     return {};
 }
 
-void Manager::fetchingmenu() {
+void Manager::mainMenu() {
     system("clear");
-    std::cout << "\n\n\tFectching Data\n ";
-}
-void Manager::mainmenu() {
-    system("clear");
-    std::cout << "\tMain Menu\n\n";
-    vector<std::string> options{"1. Browse Flights;","2. Browse Airports;","0. Exit!"};
-    for (std::string s : options){
-        std::cout << s << ";\n";
+    cout << "\tMain Menu\n\n";
+    vector<string> options{ "1. Browse Flights",
+                            "2. Browse Airports",
+                            "0. Exit" };
+    for (string s : options){
+        cout << s << "\n";
     }
     unsigned option;
-    std::cout<<"Select an option: ";
-    std::cin>>option;
+    cout << "Select an option: ";
+    cin >> option;
     switch (option) {
         case 0:
             break;
         case 1:
-            flightsmenu();
+            flightsMenu();
             break;
         case 2:
-            airportsmenu();
+            airportsMenu();
             break;
+        default:
+            system("clear");
+            cout << "ERROR: Invalid option\n(Press any key + ENTER to continue)\n";
+            string s;
+            cin >> s;
+            mainMenu();
     }
 
 }
 
-void Manager::flightsmenu() {
+void Manager::flightsMenu() {
     system("clear");
-    std::cout << "\tFlights Menu\n\n";
-    vector<std::string> options{"1. Browse Flights by airport;","2. Browse Flights by City;","3. Browse Flights by coordinates;","4. Browse Flights by Airlines;","0. Go Back!"};
-    for (std::string s : options){
-        std::cout << s << ";\n";
+    cout << "\tFlights Menu\n\n";
+    vector<string> options{"1. Browse Flights by airport",
+                           "2. Browse Flights by City",
+                           "3. Browse Flights by coordinates",
+                           "4. Browse Flights by Airlines",
+                           "0. Go Back!"};
+    for (string s : options){
+        cout << s << "\n";
     }
     unsigned option;
-    std::cout<<"Select an option: ";
-    std::cin>>option;
+    cout << "Select an option: ";
+    cin >> option;
     switch (option) {
         case 0:
+            mainMenu();
             break;
         case 1:
             //flightsairportmenu();
@@ -133,24 +142,41 @@ void Manager::flightsmenu() {
         case 4:
             //flightsairlinesmenu();
             break;
+        default:
+            system("clear");
+            cout << "ERROR: Invalid option\n(Press any key + ENTER to continue)\n";
+            string s;
+            cin >> s;
+            flightsMenu();
     }
 }
 
-void Manager::airportsmenu() {
+void Manager::airportsMenu() {
     system("clear");
-    std::cout << "\tAirports Menu\n\n";
-    std::cout << "Airport code: ";
-    std::string code;
-    std::cin >> code;
-    Airport ap=searchAirport(code);
+    cout << "\tAirports Menu\n\n";
+    cout << "Airport code: ";
+    string code;
+    cin >> code;
+    Airport airport = searchAirport(code);
 
     system("clear");
-    std::cout << "\tAirports Menu\n\n";
-    vector<std::string> options{"0. Go Back!"};
-    for (std::string s : options){
-        std::cout << s << ";\n";
+    cout << "\tAirports Menu\n\n";
+    vector<string> options{ "0. Go Back!" };
+    for (string s : options){
+        cout << s << ";\n";
     }
     unsigned option;
-    std::cout<<"Select an option: ";
-    std::cin>>option;
+    cout << "Select an option: ";
+    cin >> option;
+    switch (option) {
+        case 0:
+            mainMenu();
+            break;
+        default:
+            system("clear");
+            cout << "ERROR: Invalid option\n(Press any key + ENTER to continue)\n";
+            string s;
+            cin >> s;
+            airportsMenu();
+    }
 }
