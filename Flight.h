@@ -1,4 +1,4 @@
-#include "AirLine.h"
+ #include "AirLine.h"
 
 #ifndef AED_G60_FLIGHT_H
 #define AED_G60_FLIGHT_H
@@ -21,5 +21,5 @@ class Flight {
         void setAirline(AirLine airline);
 };
 
-
+.
 #endif //AED_G60_FLIGHT_H

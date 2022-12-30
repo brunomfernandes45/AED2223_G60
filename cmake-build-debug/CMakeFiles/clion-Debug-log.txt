@@ -1,0 +1,4 @@
+/snap/clion/219/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/219/bin/ninja/linux/ninja -G Ninja -S /home/vasco/Desktop/AED_G60 -B /home/vasco/Desktop/AED_G60/cmake-build-debug
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/vasco/Desktop/AED_G60/cmake-build-debug

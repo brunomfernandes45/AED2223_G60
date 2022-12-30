@@ -74,3 +74,83 @@ AirLine Manager::searchAirline(string code) {
     }
     return {};
 }
+Airport Manager::searchAirport(std::string code) {
+    for (auto &airport : airports) {
+        if (airport.getCode() == code) return airport;
+    }
+    return {};
+}
+
+void Manager::fetchingmenu() {
+    system("clear");
+    std::cout << "\n\n\tFectching Data\n ";
+}
+void Manager::mainmenu() {
+    system("clear");
+    std::cout << "\tMain Menu\n\n";
+    vector<std::string> options{"1. Browse Flights;","2. Browse Airports;","0. Exit!"};
+    for (std::string s : options){
+        std::cout << s << ";\n";
+    }
+    unsigned option;
+    std::cout<<"Select an option: ";
+    std::cin>>option;
+    switch (option) {
+        case 0:
+            break;
+        case 1:
+            flightsmenu();
+            break;
+        case 2:
+            airportsmenu();
+            break;
+    }
+
+}
+
+void Manager::flightsmenu() {
+    system("clear");
+    std::cout << "\tFlights Menu\n\n";
+    vector<std::string> options{"1. Browse Flights by airport;","2. Browse Flights by City;","3. Browse Flights by coordinates;","4. Browse Flights by Airlines;","0. Go Back!"};
+    for (std::string s : options){
+        std::cout << s << ";\n";
+    }
+    unsigned option;
+    std::cout<<"Select an option: ";
+    std::cin>>option;
+    switch (option) {
+        case 0:
+            break;
+        case 1:
+            //flightsairportmenu();
+            break;
+        case 2:
+            //flightscitymenu();
+            break;
+        case 3:
+            //flightscoordinatesmenu();
+            break;
+        case 4:
+            //flightsairlinesmenu();
+            break;
+    }
+}
+
+void Manager::airportsmenu() {
+    system("clear");
+    std::cout << "\tAirports Menu\n\n";
+    std::cout << "Airport code: ";
+    std::string code;
+    std::cin >> code;
+    Airport ap=searchAirport(code);
+
+    system("clear");
+    std::cout << "\tAirports Menu\n\n";
+    vector<std::string> options{"0. Go Back!"};
+    for (std::string s : options){
+        std::cout << s << ";\n";
+    }
+    unsigned option;
+    std::cout<<"Select an option: ";
+    std::cin>>option;
+}

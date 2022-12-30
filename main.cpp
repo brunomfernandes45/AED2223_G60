@@ -2,6 +2,7 @@
 
 int main() {
     Manager manager;
+
     manager.readAirlines();
     manager.readAirports();
     try {
