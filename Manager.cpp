@@ -131,13 +131,13 @@ void Manager::flightsMenu() {
             mainMenu();
             break;
         case 1:
-            //flightsairportmenu();
+            flightsairportmenu();
             break;
         case 2:
-            //flightscitymenu();
+            flightscitymenu();
             break;
         case 3:
-            //flightscoordinatesmenu();
+            flightscoordinatesmenu();
             break;
         case 4:
             //flightsairlinesmenu();
@@ -179,4 +179,76 @@ void Manager::airportsMenu() {
             cin >> s;
             airportsMenu();
     }
+}
+
+void Manager::flightsairportmenu() {
+    system("clear");
+    string source,target;
+    cout << "\tFlights by Airports Menu\n\n";
+    cout << "Source Airport code: ";
+    cin >> source;
+    cout << "\nTarget Airport code: ";
+    cin >> target;
+    Airport s,t;
+    bool sflag = true;
+    bool tflag = true;
+    for (Airport &a:airports){
+        if(a.getCode()==source){s=a; sflag=false;}
+        else if (a.getCode()==target){t=a;tflag=false;}
+    }
+    if(sflag || tflag){
+        system("clear");
+        cout << "Error: Invalid inputs!\n(Press any key + ENTER to continue)";
+        string a;
+        cin>>a;
+        flightsMenu();
+    }
+    else{
+        //preference
+    }
+
+}
+
+void Manager::flightscitymenu() {
+    system("clear");
+    string source,target;
+    cout << "\tFlights by Cities Menu\n\n";
+    cout << "Source City: ";
+    cin >> source;
+    cout << "\nTarget City: ";
+    cin >> target;
+    Airport s,t;
+    bool sflag = true;
+    bool tflag = true;
+    for (Airport &a:airports){
+        if(a.getCity()==source){s=a; sflag=false;}
+        else if (a.getCity()==target){t=a;tflag=false;}
+    }
+    if(sflag || tflag){
+        system("clear");
+        cout << "Error: Invalid inputs!\n(Press any key + ENTER to continue)";
+        string a;
+        cin>>a;
+        flightsMenu();
+    }
+    else{
+        //preference
+    }
+}
+
+void Manager::flightscoordinatesmenu() {
+    system("clear");
+    float sourceLA,targetLA,sourceLO,targetLO,range;
+    cout << "\tFlights by Coordinates Menu\n\n";
+    cout << "Source Latitude: ";
+    cin >> sourceLA;
+    cout << "Source Longitude: ";
+    cin >> sourceLO;
+    cout << "\nTarget Latitude: ";
+    cin >> targetLA;
+    cout << "\nTarget Latitude: ";
+    cin >> targetLO;
+    cout << "\nRange:";
+    cin >> range;
+
 }
