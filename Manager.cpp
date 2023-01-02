@@ -144,13 +144,13 @@ void Manager::flightsMenu() {
             mainMenu();
             break;
         case 1:
-            flightsairportmenu();
+            flightsAirportMenu();
             break;
         case 2:
-            flightscitymenu();
+            flightsCityMenu();
             break;
         case 3:
-            flightscoordinatesmenu();
+            flightsCoordinatesMenu();
             break;
         case 4:
             //flightsairlinesmenu();
@@ -171,64 +171,90 @@ void Manager::airportsMenu() {
     string code;
     cin >> code;
     Airport airport = searchAirport(code);
-
     system("clear");
-    cout << "\tAirports Menu\n\n";
-    vector<string> options{ "0. Go Back!" };
-    for (string s : options){
-        cout << s << ";\n";
+    airport.print();
+    cout << "\n(Press any key + ENTER to continue)\n";
+    string s;
+    cin >> s;
+    mainMenu();
+}
+
+void Manager::flightsAirportMenu() {
+    system("clear");
+    cout << "\tFlights by Airport Menu\n\n";
+    vector<string> options { "1. Search by source airport",
+                           "2. Search by target airport",
+                           "0. Go Back!" };
+    for (string s : options) {
+        cout << s << endl;
     }
     unsigned option;
     cout << "Select an option: ";
     cin >> option;
     switch (option) {
         case 0:
-            mainMenu();
+            flightsMenu();
+            break;
+        case 1:
+            flightsSourceAirportMenu();
+            break;
+        case 2:
+            flightsTargetAirportMenu();
             break;
         default:
             system("clear");
             cout << "ERROR: Invalid option\n(Press any key + ENTER to continue)\n";
             string s;
             cin >> s;
-            airportsMenu();
+            flightsAirportMenu();
     }
 }
 
-void Manager::flightsairportmenu() {
+void Manager::flightsSourceAirportMenu() {
     system("clear");
-    string source, target;
-    cout << "\tFlights by Airports Menu\n\n";
-    cout << "Source Airport code: ";
+    cout << "\tFlights by Source Airport Menu\n\n";
+    cout << "Source airport code: ";
+    string source;
     cin >> source;
-    cout << "\nTarget Airport code: ";
-    cin >> target;
-    Airport s, t;
-    bool sflag = true;
-    bool tflag = true;
-    for (auto &node : network.getNodes()){
-        if(node.source.getCode() == source){
-            s = node.source;
-            sflag = false;
-        }
-        else if (node.source.getCode() == target) {
-            t = node.source;
-            tflag = false;
+    system("clear");
+    for (auto node : network.getNodes()) {
+        if (node.source.getCode() == source) {
+            cout << "\tFlights from " << source << "\n\n";
+            for (auto flight : node.flights) {
+                flight.flight.print();
+                cout << "Distance: " << flight.distance << " km\n\n";
+            }
+            break;
         }
     }
-    if(sflag || tflag){
-        system("clear");
-        cout << "Error: Invalid inputs!\n(Press any key + ENTER to continue)";
-        string a;
-        cin >> a;
-        flightsMenu();
-    }
-    else{
-        //preference
-    }
-
+    cout << "\n(Press any key + ENTER to continue)\n";
+    string s;
+    cin >> s;
+    flightsMenu();
 }
 
-void Manager::flightscitymenu() {
+void Manager::flightsTargetAirportMenu() {
+    system("clear");
+    cout << "\tFlights by Target Airport Menu\n\n";
+    cout << "Target airport code: ";
+    string target;
+    cin >> target;
+    system("clear");
+    for (auto node : network.getNodes()) {
+        for (auto flight : node.flights) {
+            if (flight.flight.getTarget().getCode() == target) {
+                flight.flight.print();
+                cout << "Distance: " << flight.distance << " km\n\n";
+            }
+        }
+    }
+    cout << "\n(Press any key + ENTER to continue)\n";
+    string s;
+    cin >> s;
+    flightsMenu();
+}
+
+void Manager::flightsCityMenu() {
     system("clear");
     string source, target;
     cout << "\tFlights by Cities Menu\n\n";
@@ -261,9 +287,9 @@ void Manager::flightscitymenu() {
     }
 }
 
-void Manager::flightscoordinatesmenu() {
+void Manager::flightsCoordinatesMenu() {
     system("clear");
-    float sourceLA,targetLA,sourceLO,targetLO,range;
+    float sourceLA, targetLA, sourceLO, targetLO, range;
     cout << "\tFlights by Coordinates Menu\n\n";
     cout << "Source Latitude: ";
     cin >> sourceLA;
