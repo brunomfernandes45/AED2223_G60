@@ -56,3 +56,7 @@ void Airport::print() {
     std::cout << "Coordinates: " << latitude << " " << longitude << std::endl;
 }
 
+void Airport::shortPrint() {
+    std::cout << code << ", " << name << ", " << latitude << " " << longitude << std::endl;
+}
+

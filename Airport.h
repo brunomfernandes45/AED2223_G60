@@ -31,6 +31,7 @@ public:
     void setLongitude(double longitude);
 
     void print();
+    void shortPrint();
 };
 
 

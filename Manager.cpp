@@ -163,16 +163,54 @@ void Manager::flightsMenu() {
 void Manager::airportsMenu() {
     system("clear");
     cout << "\tAirports Menu\n\n";
-    cout << "Airport code: ";
-    string code;
-    cin >> code;
-    Airport airport = searchAirport(code);
+    vector<string> options{"1. Browse Airports per city",
+                           "2. Browse Airports per country",
+                           "0. Go Back!"};
+    for (string s : options){
+        cout << s << "\n";
+    }
+    unsigned option;
+    cout << "Select an option: ";
+    cin >> option;
+    switch (option) {
+        case 0:
+            mainMenu();
+            break;
+        case 1:
+            airportsCityMenu();
+            break;
+        case 2:
+            //airportsCountryMenu();
+            break;
+        default:
+            system("clear");
+            cout << "ERROR: Invalid option\n(Press any key + ENTER to continue)\n";
+            string s;
+            cin >> s;
+            airportsMenu();
+    }
+}
+
+void Manager::airportsCityMenu() {
+    string city;
+    int n = 0;
     system("clear");
-    airport.print();
+    cout << "Enter a city: ";
+    cin >> city;
+    for (auto node:network.getNodes()) {
+        if (city == node.source.getCity()) {
+            node.source.shortPrint();
+            n++;
+        }
+    }
+    if (n > 0)
+        cout << "Number of airports in " << city << ": " << n << endl;
+    else
+        cout << "No airports found in this city\n";
     cout << "\n(Press any key + ENTER to continue)\n";
     string s;
     cin >> s;
-    mainMenu();
+    airportsMenu();
 }
 
 void Manager::flightsAirportMenu() {
@@ -200,6 +238,7 @@ void Manager::flightsAirportMenu() {
             break;
         case 3:
             flightsBothAirportsMenu();
+            break;
         default:
             system("clear");
             cout << "ERROR: Invalid option\n(Press any key + ENTER to continue)\n";
