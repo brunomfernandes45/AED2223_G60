@@ -5,6 +5,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include "Network.h"
 
 #ifndef AED2223_G60_MANAGER_H
 #define AED2223_G60_MANAGER_H
@@ -12,7 +13,7 @@
 class Manager {
     private:
         std::vector<AirLine> airlines;
-        std::vector<Airport> airports;
+        Network network;
     public:
         //readers
         void readAirlines();
@@ -25,7 +26,6 @@ class Manager {
 
 
         //menus
-        void fetchingMenu();
         void mainMenu();
         void flightsMenu();
         void airportsMenu();

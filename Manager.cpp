@@ -2,6 +2,8 @@
 #include "Flight.cpp"
 #include "Airport.cpp"
 #include "AirLine.cpp"
+#include "Network.cpp"
+#include <unordered_map>
 using namespace std;
 
 void Manager::readAirlines() {
@@ -39,7 +41,7 @@ void Manager::readAirports() {
             getline(iss, latitude, ',');
             getline(iss, longitude);
             Airport airport(code, name, city, country, stof(latitude), stof(longitude));
-            airports.push_back(airport);
+            network.addNode(airport);
         }
     }
 }
@@ -49,21 +51,32 @@ void Manager::readFlights() {
     if (ifs.is_open()) {
         string line;
         getline(ifs, line);
+        unordered_map<string, Airport> airports;
+        unordered_map<string, AirLine> airlines;
+        size_t curr = -1;
+        string aux;
         while (getline(ifs, line)) {
             istringstream iss(line);
-            string source, target, code;
-            getline(iss, source, ',');
-            getline(iss, target, ',');
+            string from, to, code;
+            getline(iss, from, ',');
+            getline(iss, to, ',');
             getline(iss, code);
-            AirLine airline = searchAirline(code);
-            if (airline.getCode().empty()) throw invalid_argument("Flight has an invalid attribute");
-            Flight flight(source, target, airline);
-            for (auto &airport : airports) {
-                if (airport.getCode() == source){
-                    airport.addFlight(flight);
-                    break;
-                }
+            if (aux != from) curr++;
+            if (airports.find(from) == airports.end()) {
+                Airport source = searchAirport(from);
+                airports[from] = source;
             }
+            if (airports.find(to) == airports.end()) {
+                Airport target = searchAirport(to);
+                airports[to] = target;
+            }
+            if (airlines.find(code) == airlines.end()) {
+                AirLine airline = searchAirline(code);
+                airlines[code] = airline;
+            }
+            Flight flight(airports[from], airports[to], airlines[code]);
+            network.addFlight(curr, flight);
+            aux = from;
         }
     }
 }
@@ -75,8 +88,8 @@ AirLine Manager::searchAirline(string code) {
     return {};
 }
 Airport Manager::searchAirport(std::string code) {
-    for (auto &airport : airports) {
-        if (airport.getCode() == code) return airport;
+    for (auto &node : network.getNodes()) {
+        if (node.source.getCode() == code) return node.source;
     }
     return {};
 }
@@ -180,3 +193,4 @@ void Manager::airportsMenu() {
             airportsMenu();
     }
 }
+
