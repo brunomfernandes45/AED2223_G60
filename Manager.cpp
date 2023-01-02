@@ -47,35 +47,64 @@ void Manager::readAirports() {
 }
 
 void Manager::readFlights() {
-    ifstream ifs("flights.csv");
+    // Open the file in binary mode
+    ifstream ifs("flights.csv", ios::binary);
     if (ifs.is_open()) {
-        string line;
-        getline(ifs, line);
+        // Create a map to store the airports and airlines that have been read from the file
         unordered_map<string, Airport> airports;
         unordered_map<string, AirLine> airlines;
+
+        // Create a queue of tasks and a thread pool to process the tasks
+        queue<function<void()>> tasks;
+        thread_pool pool(4);  // Create a pool with 4 worker threads
+
+        // Read and parse each line of the file
+        string line;
         while (getline(ifs, line)) {
-            istringstream iss(line);
-            string from, to, code;
-            getline(iss, from, ',');
-            getline(iss, to, ',');
-            getline(iss, code);
-            if (airports.find(from) == airports.end()) {
-                Airport source = searchAirport(from);
-                airports[from] = source;
-            }
-            if (airports.find(to) == airports.end()) {
-                Airport target = searchAirport(to);
-                airports[to] = target;
-            }
-            if (airlines.find(code) == airlines.end()) {
-                AirLine airline = searchAirline(code);
-                airlines[code] = airline;
-            }
-            Flight flight(airports[from], airports[to], airlines[code]);
-            network.addFlight(flight);
+            // Add a task to the queue that processes the line
+            tasks.emplace([&] {
+                istringstream iss(line);
+                string from, to, code;
+                getline(iss, from, ',');
+                getline(iss, to, ',');
+                getline(iss, code);
+
+                // Check if the source and target airports have already been read from the file
+                // If not, search for them and store them in the map
+                if (airports.find(from) == airports.end()) {
+                    Airport source = searchAirport(from);
+                    airports[from] = source;
+                }
+                if (airports.find(to) == airports.end()) {
+                    Airport target = searchAirport(to);
+                    airports[to] = target;
+                }
+
+                // Check if the airline has already been read from the file
+                // If not, search for it and store it in the map
+                if (airlines.find(code) == airlines.end()) {
+                    AirLine airline = searchAirline(code);
+                    airlines[code] = airline;
+                }
+
+                // Create the flight using the airports and airline from the map
+                Flight flight(airports[from], airports[to], airlines[code]);
+                network.addFlight(flight);
+            });
+        }
+
+        // Add a task to the queue that waits for all tasks to complete
+        tasks.emplace([&] { pool.wait(); });
+
+        // Start the worker threads and wait for them to finish
+        while (!tasks.empty()) {
+            function<void()> task = tasks.front();
+            tasks.pop();
+            pool.enqueue(move(task));
         }
     }
 }
+
 
 AirLine Manager::searchAirline(string code) {
     for (auto &airline : airlines) {
