@@ -23,10 +23,31 @@ void Network::addFlight(Flight flight) {
     }
 }
 
-void Network::dfs(int start) {
-
+void Network::dfs(std::string start) {
+    size_t pos = 0;
+    for (size_t i = 0; i < nodes.size(); i++) {
+        if (nodes[i].source.getCode() == start) {
+            nodes[i].source.shortPrint();
+            pos = i;
+            break;
+        }
+    }
+    nodes[pos].visited = true;
+    std::cout << nodes[pos].flights.size() << std::endl;
+    for (auto e : nodes[pos].flights) {
+        size_t w = 0;
+        for (size_t i = 0; i < nodes.size(); i++) {
+            if (nodes[i].source.getCode() == e.flight.getTarget().getCode()) {
+                w = i;
+                break;
+            }
+        }
+        if (!nodes[w].visited) {
+            dfs(nodes[w].source.getCode());
+        }
+    }
 }
 
-void Network::bfs(int start) {
+void Network::bfs(std::string start) {
 
 }
