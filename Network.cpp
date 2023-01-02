@@ -13,9 +13,14 @@ std::vector<Node> Network::getNodes() {
     return nodes;
 }
 
-void Network::addFlight(size_t pos, Flight flight) {
+void Network::addFlight(Flight flight) {
     Edge newEdge { flight, flight.haversine() };
-    nodes[pos].flights.push_back(newEdge);
+    for (auto &node : nodes) {
+        if (node.source.getCode() == flight.getSource().getCode()) {
+            node.flights.push_back(newEdge);
+            break;
+        }
+    }
 }
 
 void Network::dfs(int start) {
