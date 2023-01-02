@@ -2,7 +2,7 @@
 
 Airport::Airport() { }
 
-Airport::Airport(std::string code, std::string name, std::string city, std::string country, float latitude, float longitude) {
+Airport::Airport(std::string code, std::string name, std::string city, std::string country, double latitude, double longitude) {
     this -> code = code;
     this -> name = name;
     this -> city = city;
@@ -23,14 +23,11 @@ std::string Airport::getCity() {
 std::string Airport::getCountry() {
     return country;
 }
-float Airport::getLatitude() {
+double Airport::getLatitude() {
     return latitude;
 }
-float Airport::getLongitude() {
+double Airport::getLongitude() {
     return longitude;
-}
-std::vector<Flight> Airport::getFlights() {
-    return flights;
 }
 
 void Airport::setCode(std::string code) {
@@ -45,18 +42,10 @@ void Airport::setCity(std::string city) {
 void Airport::setCountry(std::string country) {
     this -> country = country;
 }
-void Airport::setLatitude(float latitude) {
+void Airport::setLatitude(double latitude) {
     this -> latitude = latitude;
 }
-void Airport::setLongitude(float longitude) {
+void Airport::setLongitude(double longitude) {
     this -> longitude = longitude;
-}
-
-void Airport::setFlights(std::vector<Flight> flights) {
-    this -> flights = flights;
-}
-
-void Airport::addFlight(Flight flight) {
-    flights.push_back(flight);
 }
 

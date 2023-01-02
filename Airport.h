@@ -1,4 +1,3 @@
-#include "Flight.h"
 #include <string>
 #include <vector>
 
@@ -7,35 +6,29 @@
 
 
 class Airport {
-    private:
-        std::string code;
-        std::string name;
-        std::string city;
-        std::string country;
-        float latitude;
-        float longitude;
-        std::vector<Flight> flights;
-    public:
-        Airport();
-        Airport(std::string code, std::string name, std::string city, std::string country, float latitude, float longitude);
+    std::string code;
+    std::string name;
+    std::string city;
+    std::string country;
+    double latitude;
+    double longitude;
+public:
+    Airport();
+    Airport(std::string code, std::string name, std::string city, std::string country, double latitude, double longitude);
 
-        std::string getCode();
-        std::string getName();
-        std::string getCity();
-        std::string getCountry();
-        float getLatitude();
-        float getLongitude();
-        std::vector<Flight> getFlights();
+    std::string getCode();
+    std::string getName();
+    std::string getCity();
+    std::string getCountry();
+    double getLatitude();
+    double getLongitude();
 
-        void setCode(std::string code);
-        void setName(std::string name);
-        void setCity(std::string city);
-        void setCountry(std::string country);
-        void setLatitude(float latitude);
-        void setLongitude(float longitude);
-        void setFlights(std::vector<Flight> flights);
-
-        void addFlight(Flight flight);
+    void setCode(std::string code);
+    void setName(std::string name);
+    void setCity(std::string city);
+    void setCountry(std::string country);
+    void setLatitude(double latitude);
+    void setLongitude(double longitude);
 };
 
 
