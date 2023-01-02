@@ -184,6 +184,7 @@ void Manager::flightsAirportMenu() {
     cout << "\tFlights by Airport Menu\n\n";
     vector<string> options { "1. Search by source airport",
                            "2. Search by target airport",
+                           "3. Search by both airports",
                            "0. Go Back!" };
     for (string s : options) {
         cout << s << endl;
@@ -201,6 +202,8 @@ void Manager::flightsAirportMenu() {
         case 2:
             flightsTargetAirportMenu();
             break;
+        case 3:
+            flightsBothAirportsMenu();
         default:
             system("clear");
             cout << "ERROR: Invalid option\n(Press any key + ENTER to continue)\n";
@@ -295,12 +298,29 @@ void Manager::flightsCoordinatesMenu() {
     cin >> sourceLA;
     cout << "Source Longitude: ";
     cin >> sourceLO;
-    cout << "\nTarget Latitude: ";
+    cout << "Target Latitude: ";
     cin >> targetLA;
-    cout << "\nTarget Latitude: ";
+    cout << "Target Latitude: ";
     cin >> targetLO;
     cout << "\nRange:";
     cin >> range;
 
+}
+
+void Manager::flightsBothAirportsMenu() {
+    system("clear");
+    cout << "\tFlights by Both Airports Menu\n\n";
+    cout << "Source airport code: ";
+    string source;
+    cin >> source;
+    cout << "Target airport code: ";
+    string target;
+    cin >> target;
+    system("clear");
+    //print flights
+    cout << "\n(Press any key + ENTER to continue)\n";
+    string s;
+    cin >> s;
+    flightsMenu();
 }
 
