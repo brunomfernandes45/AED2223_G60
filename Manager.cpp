@@ -196,24 +196,30 @@ void Manager::airportsMenu() {
 
 void Manager::flightsairportmenu() {
     system("clear");
-    string source,target;
+    string source, target;
     cout << "\tFlights by Airports Menu\n\n";
     cout << "Source Airport code: ";
     cin >> source;
     cout << "\nTarget Airport code: ";
     cin >> target;
-    Airport s,t;
+    Airport s, t;
     bool sflag = true;
     bool tflag = true;
-    for (Airport &a:airports){
-        if(a.getCode()==source){s=a; sflag=false;}
-        else if (a.getCode()==target){t=a;tflag=false;}
+    for (auto &node : network.getNodes()){
+        if(node.source.getCode() == source){
+            s = node.source;
+            sflag = false;
+        }
+        else if (node.source.getCode() == target) {
+            t = node.source;
+            tflag = false;
+        }
     }
     if(sflag || tflag){
         system("clear");
         cout << "Error: Invalid inputs!\n(Press any key + ENTER to continue)";
         string a;
-        cin>>a;
+        cin >> a;
         flightsMenu();
     }
     else{
@@ -224,24 +230,30 @@ void Manager::flightsairportmenu() {
 
 void Manager::flightscitymenu() {
     system("clear");
-    string source,target;
+    string source, target;
     cout << "\tFlights by Cities Menu\n\n";
     cout << "Source City: ";
     cin >> source;
     cout << "\nTarget City: ";
     cin >> target;
-    Airport s,t;
+    Airport s, t;
     bool sflag = true;
     bool tflag = true;
-    for (Airport &a:airports){
-        if(a.getCity()==source){s=a; sflag=false;}
-        else if (a.getCity()==target){t=a;tflag=false;}
+    for (auto &node : network.getNodes()){
+        if(node.source.getCity() == source){
+            s = node.source;
+            sflag = false;
+        }
+        else if (node.source.getCity() == target){
+            t = node.source;
+            tflag = false;
+        }
     }
     if(sflag || tflag){
         system("clear");
         cout << "Error: Invalid inputs!\n(Press any key + ENTER to continue)";
         string a;
-        cin>>a;
+        cin >> a;
         flightsMenu();
     }
     else{
