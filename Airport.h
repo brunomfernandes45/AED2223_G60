@@ -29,6 +29,8 @@ public:
     void setCountry(std::string country);
     void setLatitude(double latitude);
     void setLongitude(double longitude);
+
+    void print();
 };
 
 

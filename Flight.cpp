@@ -50,3 +50,7 @@ double Flight::haversine() {
     double c = 2 * asin(sqrt(a));
     return rad * c;
 }
+
+void Flight::print() {
+    std::cout << "From " << source.getName() << " to " << target.getName() << " with " << airline.getName() << std::endl;
+}

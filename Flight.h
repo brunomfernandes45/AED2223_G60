@@ -21,6 +21,8 @@ public:
     void setTarget(Airport target);
     void setAirline(AirLine airline);
 
+    void print();
+
     double haversine();
 };
 

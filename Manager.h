@@ -29,9 +29,11 @@ class Manager {
         void mainMenu();
         void flightsMenu();
         void airportsMenu();
-        void flightsairportmenu();
-        void flightscitymenu();
-        void flightscoordinatesmenu();
+        void flightsAirportMenu();
+        void flightsCityMenu();
+        void flightsCoordinatesMenu();
+        void flightsSourceAirportMenu();
+        void flightsTargetAirportMenu();
 
 };
 

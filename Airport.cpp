@@ -49,3 +49,10 @@ void Airport::setLongitude(double longitude) {
     this -> longitude = longitude;
 }
 
+void Airport::print() {
+    std::cout << "Code: " << code << std::endl;
+    std::cout << "Name: " << name << std::endl;
+    std::cout << "City: " << city << std::endl;
+    std::cout << "Coordinates: " << latitude << " " << longitude << std::endl;
+}
+
