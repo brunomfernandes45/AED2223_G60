@@ -34,6 +34,7 @@ class Manager {
         void flightsCoordinatesMenu();
         void flightsSourceAirportMenu();
         void flightsTargetAirportMenu();
+        void flightsBothAirportsMenu();
 
 };
 
