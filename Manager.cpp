@@ -48,7 +48,7 @@ void Manager::readAirports() {
 
 void Manager::readFlights() {
     // Open the file in binary mode
-    ifstream ifs("flights.csv", ios::binary);
+    ifstream ifs("flights.csv");
     if (ifs.is_open()) {
         // Create a map to store the airports and airlines that have been read from the file
         unordered_map<string, Airport> airports;
@@ -147,7 +147,6 @@ void Manager::mainMenu() {
             cin >> s;
             mainMenu();
     }
-
 }
 
 void Manager::flightsMenu() {

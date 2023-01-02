@@ -24,8 +24,8 @@ public:
     std::vector<Node> getNodes();
     void addNode(Airport source);
     void addFlight(Flight flight);
-    void dfs(int start);
-    void bfs(int start);
+    void dfs(std::string start);
+    void bfs(std::string start);
 };
 
 
