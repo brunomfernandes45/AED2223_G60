@@ -53,15 +53,12 @@ void Manager::readFlights() {
         getline(ifs, line);
         unordered_map<string, Airport> airports;
         unordered_map<string, AirLine> airlines;
-        size_t curr = -1;
-        string aux;
         while (getline(ifs, line)) {
             istringstream iss(line);
             string from, to, code;
             getline(iss, from, ',');
             getline(iss, to, ',');
             getline(iss, code);
-            if (aux != from) curr++;
             if (airports.find(from) == airports.end()) {
                 Airport source = searchAirport(from);
                 airports[from] = source;
@@ -75,8 +72,7 @@ void Manager::readFlights() {
                 airlines[code] = airline;
             }
             Flight flight(airports[from], airports[to], airlines[code]);
-            network.addFlight(curr, flight);
-            aux = from;
+            network.addFlight(flight);
         }
     }
 }
@@ -268,8 +264,8 @@ void Manager::flightsCityMenu() {
     Airport s, t;
     bool sflag = true;
     bool tflag = true;
-    for (auto &node : network.getNodes()){
-        if(node.source.getCity() == source){
+    for (auto &node : network.getNodes()) {
+        if(node.source.getCity() == source) {
             s = node.source;
             sflag = false;
         }

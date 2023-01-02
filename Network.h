@@ -23,7 +23,7 @@ public:
     Network();
     std::vector<Node> getNodes();
     void addNode(Airport source);
-    void addFlight(size_t pos, Flight flight);
+    void addFlight(Flight flight);
     void dfs(int start);
     void bfs(int start);
 };
