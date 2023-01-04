@@ -27,22 +27,22 @@ void Network::dfs(std::string start) {
     size_t pos = 0;
     for (size_t i = 0; i < nodes.size(); i++) {
         if (nodes[i].source.getCode() == start) {
+            nodes[i].source.shortPrint();
             pos = i;
             break;
         }
     }
-    nodes[pos].source.shortPrint();
     nodes[pos].visited = true;
     for (auto e : nodes[pos].flights) {
-        size_t dest = 0;
+        size_t w = 0;
         for (size_t i = 0; i < nodes.size(); i++) {
-            if (nodes[i].source.getCode() == start) {
-                dest = i;
+            if (nodes[i].source.getCode() == e.flight.getTarget().getCode()) {
+                w = i;
                 break;
             }
         }
-        if (!nodes[dest].visited) {
-            dfs(nodes[dest].source.getCode());
+        if (!nodes[w].visited) {
+            dfs(nodes[w].source.getCode());
         }
     }
 }

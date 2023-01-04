@@ -63,34 +63,6 @@ void Manager::readFlights() {
     }
 }
 
-
-/*
-void Manager::readFlights() {
-    ifstream ifs("flights.csv");
-    if (ifs.is_open()) {
-        // Create a thread pool with 4 worker threads
-        thread_pool pool(4);
-
-        // Read and parse each line of the file
-        string line;
-        while (getline(ifs, line)) {
-            // Add a task to the thread pool that processes the line
-            pool.enqueue([&] {
-                istringstream iss(line);
-                string source, target, code;
-                getline(iss, source, ',');
-                getline(iss, target, ',');
-                getline(iss, code);
-                Flight flight(airports[source], airports[target], airlines[code]);
-                network.addFlight(flight);
-            });
-        }
-
-        // Wait for the worker threads to finish
-        pool.wait();
-    }
-}
-*/
 void Manager::mainMenu() {
     system("clear");
     cout << "\tMain Menu\n\n";
@@ -105,7 +77,6 @@ void Manager::mainMenu() {
     cin >> option;
     switch (option) {
         case 0:
-            network.dfs("OPO");
             break;
         case 1:
             flightsMenu();
@@ -120,7 +91,6 @@ void Manager::mainMenu() {
             cin >> s;
             mainMenu();
     }
-
 }
 
 void Manager::flightsMenu() {
