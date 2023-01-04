@@ -33,7 +33,6 @@ void Network::dfs(std::string start) {
         }
     }
     nodes[pos].visited = true;
-    std::cout << nodes[pos].flights.size() << std::endl;
     for (auto e : nodes[pos].flights) {
         size_t w = 0;
         for (size_t i = 0; i < nodes.size(); i++) {
