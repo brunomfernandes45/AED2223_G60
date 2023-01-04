@@ -11,24 +11,23 @@
 #include <functional>
 #include <mutex>
 #include <condition_variable>
+#include <unordered_map>
 
 #ifndef AED2223_G60_MANAGER_H
 #define AED2223_G60_MANAGER_H
 
 class Manager {
     private:
-        std::vector<AirLine> airlines;
+        std::unordered_map<std::string, Airport> airports;
+        std::unordered_map<std::string, AirLine> airlines;
         Network network;
+        std::mutex airport_mutex;
+        std::mutex airline_mutex;
     public:
         //readers
         void readAirlines();
         void readAirports();
         void readFlights();
-
-        //searches
-        AirLine searchAirline(std::string code);
-        Airport searchAirport(std::string code);
-
 
         //menus
         void mainMenu();
@@ -45,7 +44,7 @@ class Manager {
         void flightsBothAirportsMenu();
 
 };
-
+/*
 class thread_pool {
 public:
     explicit thread_pool(size_t num_threads) : m_done(false) {
@@ -101,5 +100,5 @@ private:
     bool m_done;
 };
 
-
+*/
 #endif //AED2223_G60_MANAGER_H
