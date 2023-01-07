@@ -1,0 +1,122 @@
+\hypertarget{classNetwork}{}\doxysection{Network Class Reference}
+\label{classNetwork}\index{Network@{Network}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classNetwork_a3cc2fb4f8fa4d507077e8da85ce5a1c8}\label{classNetwork_a3cc2fb4f8fa4d507077e8da85ce5a1c8}} 
+\mbox{\hyperlink{classNetwork_a3cc2fb4f8fa4d507077e8da85ce5a1c8}{Network}} ()
+\begin{DoxyCompactList}\small\item\em Default Constructor. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{structNode}{Node}} $>$ \mbox{\hyperlink{classNetwork_a5e54d301d33f143684837f63e5f9e63b}{get\+Nodes}} ()
+\begin{DoxyCompactList}\small\item\em Gets the nodes vector. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classNetwork_a475ab40843e71494ee67bb4b053e9030}{add\+Node}} (\mbox{\hyperlink{classAirport}{Airport}} source)
+\begin{DoxyCompactList}\small\item\em Adds an airport to the nodes vector Complexity\+: O(1) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classNetwork_a663ec6914cd62050e87acdb94706e36d}{add\+Flight}} (\mbox{\hyperlink{classFlight}{Flight}} flight)
+\begin{DoxyCompactList}\small\item\em Adds a flight to the flights vector of its source airport Complexity\+: O(n) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classNetwork_ad1e53bf863ec8f7d7f07d46490b6d6ce}{dfs}} (std\+::string start)
+\begin{DoxyCompactList}\small\item\em Makes a depth-\/first-\/search Complexity\+: O(V + E), V being the number of airports and E the number of flights. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classNetwork_afaa5dd2b92e46bc4b99f2a39807b0478}{bfs}} (std\+::string start)
+\begin{DoxyCompactList}\small\item\em Makes a breadth-\/first-\/search Complexity\+: O(V + E), V being the number of airports and E the number of flights. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classNetwork_aae33bf699a7f7491f4fae07a2317ea7d}{bfs\+Special}} (std\+::string start, unsigned max\+Flights)
+\begin{DoxyCompactList}\small\item\em Makes a breadth-\/first-\/search with a limited number of flights Complexity\+: O(V + E), V being the number of airports and E the number of flights. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classNetwork_acde7b5cdcff5bc1b9ea2a126120d6786}\label{classNetwork_acde7b5cdcff5bc1b9ea2a126120d6786}} 
+std\+::vector$<$ \mbox{\hyperlink{classFlight}{Flight}} $>$ {\bfseries bfs\+Best\+Flights} (std\+::string start, std\+::string dest)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classNetwork_a663ec6914cd62050e87acdb94706e36d}\label{classNetwork_a663ec6914cd62050e87acdb94706e36d}} 
+\index{Network@{Network}!addFlight@{addFlight}}
+\index{addFlight@{addFlight}!Network@{Network}}
+\doxysubsubsection{\texorpdfstring{addFlight()}{addFlight()}}
+{\footnotesize\ttfamily void Network\+::add\+Flight (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classFlight}{Flight}}}]{flight }\end{DoxyParamCaption})}
+
+
+
+Adds a flight to the flights vector of its source airport Complexity\+: O(n) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em flight} & FLight being added \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classNetwork_a475ab40843e71494ee67bb4b053e9030}\label{classNetwork_a475ab40843e71494ee67bb4b053e9030}} 
+\index{Network@{Network}!addNode@{addNode}}
+\index{addNode@{addNode}!Network@{Network}}
+\doxysubsubsection{\texorpdfstring{addNode()}{addNode()}}
+{\footnotesize\ttfamily void Network\+::add\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classAirport}{Airport}}}]{source }\end{DoxyParamCaption})}
+
+
+
+Adds an airport to the nodes vector Complexity\+: O(1) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & \mbox{\hyperlink{classAirport}{Airport}} being added to the vector \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classNetwork_afaa5dd2b92e46bc4b99f2a39807b0478}\label{classNetwork_afaa5dd2b92e46bc4b99f2a39807b0478}} 
+\index{Network@{Network}!bfs@{bfs}}
+\index{bfs@{bfs}!Network@{Network}}
+\doxysubsubsection{\texorpdfstring{bfs()}{bfs()}}
+{\footnotesize\ttfamily void Network\+::bfs (\begin{DoxyParamCaption}\item[{std\+::string}]{start }\end{DoxyParamCaption})}
+
+
+
+Makes a breadth-\/first-\/search Complexity\+: O(V + E), V being the number of airports and E the number of flights. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em start} & Starting position of the search \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classNetwork_aae33bf699a7f7491f4fae07a2317ea7d}\label{classNetwork_aae33bf699a7f7491f4fae07a2317ea7d}} 
+\index{Network@{Network}!bfsSpecial@{bfsSpecial}}
+\index{bfsSpecial@{bfsSpecial}!Network@{Network}}
+\doxysubsubsection{\texorpdfstring{bfsSpecial()}{bfsSpecial()}}
+{\footnotesize\ttfamily void Network\+::bfs\+Special (\begin{DoxyParamCaption}\item[{std\+::string}]{start,  }\item[{unsigned}]{max\+Flights }\end{DoxyParamCaption})}
+
+
+
+Makes a breadth-\/first-\/search with a limited number of flights Complexity\+: O(V + E), V being the number of airports and E the number of flights. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em start} & Starting position of the search \\
+\hline
+{\em max\+Flights} & Maximum of flights \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classNetwork_ad1e53bf863ec8f7d7f07d46490b6d6ce}\label{classNetwork_ad1e53bf863ec8f7d7f07d46490b6d6ce}} 
+\index{Network@{Network}!dfs@{dfs}}
+\index{dfs@{dfs}!Network@{Network}}
+\doxysubsubsection{\texorpdfstring{dfs()}{dfs()}}
+{\footnotesize\ttfamily void Network\+::dfs (\begin{DoxyParamCaption}\item[{std\+::string}]{start }\end{DoxyParamCaption})}
+
+
+
+Makes a depth-\/first-\/search Complexity\+: O(V + E), V being the number of airports and E the number of flights. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em start} & Starting position of the search \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classNetwork_a5e54d301d33f143684837f63e5f9e63b}\label{classNetwork_a5e54d301d33f143684837f63e5f9e63b}} 
+\index{Network@{Network}!getNodes@{getNodes}}
+\index{getNodes@{getNodes}!Network@{Network}}
+\doxysubsubsection{\texorpdfstring{getNodes()}{getNodes()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{structNode}{Node}} $>$ Network\+::get\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the nodes vector. 
+
+\begin{DoxyReturn}{Returns}
+Returns the nodes vector 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Network.\+h\item 
+Network.\+cpp\end{DoxyCompactItemize}

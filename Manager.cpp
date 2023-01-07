@@ -446,22 +446,23 @@ void Manager::flightsBothAirportsMenu() {
     }
     int n = 0;
     system("clear");
-    if (s || t)
+    vector<Flight> v;
+    string al;
+    if (s || t) {
         cout << "Error: Invalid inputs\n";
-    for (auto node : network.getNodes()) {
-        if (node.source.getCode() == source) {
-            for (auto e : node.flights) {
-                if (e.flight.getTarget().getCode() == target) {
-                    e.flight.print();
-                    cout << "Distance: " << (int) e.distance << " km" << endl;
-                    n++;
-                }
-            }
-            break;
+    }
+    else {
+        cout << "Which airline do you want to be travelling with? (Write '000' if you don't want to specify any airline)\n";
+        cin >> al;
+        system("clear");
+        v = network.bfsBestFlights(source, target,al);
+        cout << "Best flight to take to go from " << source << " to " << target << ": \n\n";
+        for (size_t j = 0; j < v.size(); j++) {
+            v[j].print();
         }
     }
     if (!(s || t))
-        cout << "\nThere are " << n << " flights from " << source << " to " << target << endl;
+        cout << "\nThere are " << v.size() << " flights from " << source << " to " << target << endl;
     cout << "\n(Press any key + ENTER to continue)\n";
     string a;
     cin >> a;
@@ -491,9 +492,13 @@ void Manager::flightsCityMenu() {
             targets.push_back(node.source.getCode());
         }
     }
+    string al;
+    cout << "Which airline do you want to be travelling with? (Write '000' if you don't want to specify any airline)\n";
+    cin >> al;
+    system("clear");
     for (auto s : sources) {
         for (auto t : targets) {
-            auto v = network.bfsBestFlights(s, t);
+            auto v = network.bfsBestFlights(s, t,al);
             if (v.empty()) continue;
             flights.push_back(v);
         }
@@ -549,9 +554,13 @@ void Manager::flightsCoordinatesMenu() {
             targets.push_back(node.source.getCode());
         }
     }
+    string al;
+    cout << "Which airline do you want to be travelling with? (Write '000' if you don't want to specify any airline)\n";
+    cin >> al;
+    system("clear");
     for (auto s : sources) {
         for (auto t : targets) {
-            auto v = network.bfsBestFlights(s, t);
+            auto v = network.bfsBestFlights(s, t,al);
             if (v.empty()) continue;
             flights.push_back(v);
         }

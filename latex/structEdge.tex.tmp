@@ -1,0 +1,20 @@
+\hypertarget{structEdge}{}\doxysection{Edge Struct Reference}
+\label{structEdge}\index{Edge@{Edge}}
+
+
+Collaboration diagram for Edge\+:
+% FIG 0
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structEdge_af763cb5d7bca4bbd011e64384288d7f0}\label{structEdge_af763cb5d7bca4bbd011e64384288d7f0}} 
+\mbox{\hyperlink{classFlight}{Flight}} {\bfseries flight}
+\item 
+\mbox{\Hypertarget{structEdge_a697dbb39235e54e2dce0e85d213bc753}\label{structEdge_a697dbb39235e54e2dce0e85d213bc753}} 
+double {\bfseries distance}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Network.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,155 @@
+\hypertarget{classFlight}{}\doxysection{Flight Class Reference}
+\label{classFlight}\index{Flight@{Flight}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFlight_acbf1e8c321e01e04db2fe651a08b30af}\label{classFlight_acbf1e8c321e01e04db2fe651a08b30af}} 
+\mbox{\hyperlink{classFlight_acbf1e8c321e01e04db2fe651a08b30af}{Flight}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classFlight_a2d7f6fb50066f97d2f83e94f5c8f942f}{Flight}} (\mbox{\hyperlink{classAirport}{Airport}} source, \mbox{\hyperlink{classAirport}{Airport}} target, \mbox{\hyperlink{classAirLine}{Air\+Line}} airline)
+\begin{DoxyCompactList}\small\item\em Constructor of a flight. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classAirport}{Airport}} \mbox{\hyperlink{classFlight_a885ae845cf8c780a8026f2ea6be4aa56}{get\+Source}} ()
+\begin{DoxyCompactList}\small\item\em Gets the source airport. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classAirport}{Airport}} \mbox{\hyperlink{classFlight_a79bc42a535a6dff857ab543c78edd923}{get\+Target}} ()
+\begin{DoxyCompactList}\small\item\em Gets the target airport. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classAirLine}{Air\+Line}} \mbox{\hyperlink{classFlight_a8317a885ef2dee3ec86c1af0070707ba}{get\+Airline}} ()
+\begin{DoxyCompactList}\small\item\em Gets the airline. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classFlight_a0d8ee3e5fc4effe3a315426c122406f0}{set\+Source}} (\mbox{\hyperlink{classAirport}{Airport}} source)
+\begin{DoxyCompactList}\small\item\em Sets the source airport. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classFlight_aa69d7eb2953ca506648b7c8e82400560}{set\+Target}} (\mbox{\hyperlink{classAirport}{Airport}} target)
+\begin{DoxyCompactList}\small\item\em Sets the target airport. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classFlight_a210dc26dbe54dc1c5abb1adf50c227b2}{set\+Airline}} (\mbox{\hyperlink{classAirLine}{Air\+Line}} airline)
+\begin{DoxyCompactList}\small\item\em Sets the airline. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFlight_a4c1c54cbcf8647aa81d0824b26ef58d1}\label{classFlight_a4c1c54cbcf8647aa81d0824b26ef58d1}} 
+void \mbox{\hyperlink{classFlight_a4c1c54cbcf8647aa81d0824b26ef58d1}{print}} ()
+\begin{DoxyCompactList}\small\item\em Prints the flight\textquotesingle{}s information Complexity\+: O(1) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classFlight_af85b2b6beb923cb55c8559d14cdf7de0}{haversine}} ()
+\begin{DoxyCompactList}\small\item\em Calculates the distance between the source and the target airport using the Haversine formula Complexity\+: O(1) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classFlight_a2d7f6fb50066f97d2f83e94f5c8f942f}\label{classFlight_a2d7f6fb50066f97d2f83e94f5c8f942f}} 
+\index{Flight@{Flight}!Flight@{Flight}}
+\index{Flight@{Flight}!Flight@{Flight}}
+\doxysubsubsection{\texorpdfstring{Flight()}{Flight()}}
+{\footnotesize\ttfamily Flight\+::\+Flight (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classAirport}{Airport}}}]{source,  }\item[{\mbox{\hyperlink{classAirport}{Airport}}}]{target,  }\item[{\mbox{\hyperlink{classAirLine}{Air\+Line}}}]{airline }\end{DoxyParamCaption})}
+
+
+
+Constructor of a flight. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The flight\textquotesingle{}s source airport \\
+\hline
+{\em target} & The flight\textquotesingle{}s target airport \\
+\hline
+{\em airline} & The flight\textquotesingle{}s airline \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classFlight_a8317a885ef2dee3ec86c1af0070707ba}\label{classFlight_a8317a885ef2dee3ec86c1af0070707ba}} 
+\index{Flight@{Flight}!getAirline@{getAirline}}
+\index{getAirline@{getAirline}!Flight@{Flight}}
+\doxysubsubsection{\texorpdfstring{getAirline()}{getAirline()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classAirLine}{Air\+Line}} Flight\+::get\+Airline (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the airline. 
+
+\begin{DoxyReturn}{Returns}
+Returns the airline 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFlight_a885ae845cf8c780a8026f2ea6be4aa56}\label{classFlight_a885ae845cf8c780a8026f2ea6be4aa56}} 
+\index{Flight@{Flight}!getSource@{getSource}}
+\index{getSource@{getSource}!Flight@{Flight}}
+\doxysubsubsection{\texorpdfstring{getSource()}{getSource()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classAirport}{Airport}} Flight\+::get\+Source (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the source airport. 
+
+\begin{DoxyReturn}{Returns}
+Returns the source airport 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFlight_a79bc42a535a6dff857ab543c78edd923}\label{classFlight_a79bc42a535a6dff857ab543c78edd923}} 
+\index{Flight@{Flight}!getTarget@{getTarget}}
+\index{getTarget@{getTarget}!Flight@{Flight}}
+\doxysubsubsection{\texorpdfstring{getTarget()}{getTarget()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classAirport}{Airport}} Flight\+::get\+Target (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the target airport. 
+
+\begin{DoxyReturn}{Returns}
+Returns the target airport 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFlight_af85b2b6beb923cb55c8559d14cdf7de0}\label{classFlight_af85b2b6beb923cb55c8559d14cdf7de0}} 
+\index{Flight@{Flight}!haversine@{haversine}}
+\index{haversine@{haversine}!Flight@{Flight}}
+\doxysubsubsection{\texorpdfstring{haversine()}{haversine()}}
+{\footnotesize\ttfamily double Flight\+::haversine (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Calculates the distance between the source and the target airport using the Haversine formula Complexity\+: O(1) 
+
+\begin{DoxyReturn}{Returns}
+Returns the distance between the source and the target airport 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFlight_a210dc26dbe54dc1c5abb1adf50c227b2}\label{classFlight_a210dc26dbe54dc1c5abb1adf50c227b2}} 
+\index{Flight@{Flight}!setAirline@{setAirline}}
+\index{setAirline@{setAirline}!Flight@{Flight}}
+\doxysubsubsection{\texorpdfstring{setAirline()}{setAirline()}}
+{\footnotesize\ttfamily void Flight\+::set\+Airline (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classAirLine}{Air\+Line}}}]{airline }\end{DoxyParamCaption})}
+
+
+
+Sets the airline. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em airline} & Airline begin set \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classFlight_a0d8ee3e5fc4effe3a315426c122406f0}\label{classFlight_a0d8ee3e5fc4effe3a315426c122406f0}} 
+\index{Flight@{Flight}!setSource@{setSource}}
+\index{setSource@{setSource}!Flight@{Flight}}
+\doxysubsubsection{\texorpdfstring{setSource()}{setSource()}}
+{\footnotesize\ttfamily void Flight\+::set\+Source (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classAirport}{Airport}}}]{source }\end{DoxyParamCaption})}
+
+
+
+Sets the source airport. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & \mbox{\hyperlink{classAirport}{Airport}} being set as source \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classFlight_aa69d7eb2953ca506648b7c8e82400560}\label{classFlight_aa69d7eb2953ca506648b7c8e82400560}} 
+\index{Flight@{Flight}!setTarget@{setTarget}}
+\index{setTarget@{setTarget}!Flight@{Flight}}
+\doxysubsubsection{\texorpdfstring{setTarget()}{setTarget()}}
+{\footnotesize\ttfamily void Flight\+::set\+Target (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classAirport}{Airport}}}]{target }\end{DoxyParamCaption})}
+
+
+
+Sets the target airport. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & \mbox{\hyperlink{classAirport}{Airport}} being set as target \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Flight.\+h\item 
+Flight.\+cpp\end{DoxyCompactItemize}
