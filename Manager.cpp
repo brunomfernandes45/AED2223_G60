@@ -168,7 +168,7 @@ void Manager::airportsCityMenu() {
     int n = 0;
     system("clear");
     cout << "Enter a city: ";
-    cin >> city;
+    getline(cin, city);
     for (auto node:network.getNodes()) {
         if (city == node.source.getCity()) {
             node.source.shortPrint();
@@ -225,14 +225,14 @@ void Manager::flightsSourceAirportMenu() {
     cout << "\tFlights by Source Airport Menu\n\n";
     cout << "Source airport code: ";
     string source;
-    cin >> source;
+    getline(cin, source);
     system("clear");
     for (auto node : network.getNodes()) {
         if (node.source.getCode() == source) {
             cout << "\tFlights from " << source << "\n\n";
-            for (auto flight : node.flights) {
-                flight.flight.print();
-                cout << "Distance: " << flight.distance << " km\n\n";
+            for (auto e : node.flights) {
+                e.flight.print();
+                cout << "Distance: " << (int) e.distance << " km\n\n";
             }
             break;
         }
@@ -248,15 +248,20 @@ void Manager::flightsTargetAirportMenu() {
     cout << "\tFlights by Target Airport Menu\n\n";
     cout << "Target airport code: ";
     string target;
-    cin >> target;
+    getline(cin, target);
     system("clear");
+    bool flag = true;
     for (auto node : network.getNodes()) {
-        for (auto flight : node.flights) {
-            if (flight.flight.getTarget().getCode() == target) {
-                flight.flight.print();
-                cout << "Distance: " << flight.distance << " km\n\n";
+        for (auto e : node.flights) {
+            if (e.flight.getTarget().getCode() == target) {
+                e.flight.print();
+                cout << "Distance: " << (int) e.distance << " km\n\n";
+                flag = false;
             }
         }
+    }
+    if (flag) {
+        cout << "Error: Invalid inputs\n";
     }
     cout << "\n(Press any key + ENTER to continue)\n";
     string s;
@@ -266,35 +271,55 @@ void Manager::flightsTargetAirportMenu() {
 
 void Manager::flightsCityMenu() {
     system("clear");
-    string source, target;
-    cout << "\tFlights by Cities Menu\n\n";
-    cout << "Source City: ";
-    cin >> source;
-    cout << "\nTarget City: ";
-    cin >> target;
-    Airport s, t;
-    bool sflag = true;
-    bool tflag = true;
-    for (auto &node : network.getNodes()) {
-        if(node.source.getCity() == source) {
-            s = node.source;
-            sflag = false;
+    string op1, op2, source, target;
+    cout << "Does the source city have more than one word? [y / n] ";
+    cin >> op1;
+    system("clear");
+    cout << "Source city: ";
+    if (op1 == "y") {
+        getline(cin, source);
+        cout << endl;
+    }
+    else {
+        cin >> source;
+    }
+    cin >> op2;
+    system("clear");
+    cout << "Target city: ";
+    if (op2 == "y") {
+        getline(cin, target);
+        cout << endl;
+    }
+    else {
+        cin >> target;
+    }
+    bool s, t = true;
+    for (auto node : network.getNodes()) {
+        if (node.source.getCity() == source) s = false;
+        if (node.source.getCity() == target) t = false;
+    }
+    int n = 0;
+    system("clear");
+    if (s || t)
+        cout << "Error: Invalid inputs\n";
+    for (auto node : network.getNodes()) {
+        if (node.source.getCity() == source) {
+            for (auto e : node.flights) {
+                if (e.flight.getTarget().getCity() == target) {
+                    e.flight.print();
+                    cout << "Distance: " << (int) e.distance << " km" << endl;
+                    n++;
+                }
+            }
+            break;
         }
-        else if (node.source.getCity() == target){
-            t = node.source;
-            tflag = false;
-        }
     }
-    if(sflag || tflag){
-        system("clear");
-        cout << "Error: Invalid inputs!\n(Press any key + ENTER to continue)";
-        string a;
-        cin >> a;
-        flightsMenu();
-    }
-    else{
-        //preference
-    }
+    if (n == 0 && !(s || t))
+        cout << "There are no flights from " << source << " to " << target << endl;
+    cout << "\n(Press any key + ENTER to continue)\n";
+    string a;
+    cin >> a;
+    flightsMenu();
 }
 
 void Manager::flightsCoordinatesMenu() {
@@ -318,11 +343,14 @@ void Manager::flightsBothAirportsMenu() {
     system("clear");
     cout << "\tFlights by Both Airports Menu\n\n";
     cout << "Source airport code: ";
+    cout << "Source airport code: ";
     string source;
-    cin >> source;
+    getline(cin, source);
+    cout << "You entered: " << source << endl;
     cout << "Target airport code: ";
     string target;
-    cin >> target;
+    getline(cin, target);
+    cout << "You entered: " << target << endl;
     system("clear");
     //print flights
     cout << "\n(Press any key + ENTER to continue)\n";
