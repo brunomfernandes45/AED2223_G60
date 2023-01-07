@@ -43,6 +43,12 @@ class Manager {
         void flightsTargetAirportMenu();
         void flightsBothAirportsMenu();
 
+        void airlinesMenu();
+        void specificAirlineMenu(AirLine &al);
+
+        long printAirlineFlights(AirLine &al);
+        bool isInRange(double lat, double lon, Airport &ap, double range);
+
 };
 /*
 class thread_pool {

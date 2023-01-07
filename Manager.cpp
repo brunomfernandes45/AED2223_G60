@@ -63,11 +63,35 @@ void Manager::readFlights() {
     }
 }
 
+bool Manager::isInRange(double lat, double lon, Airport &ap, double range) {
+    double lat1=lat;
+    double lon1=lon;
+    double lat2=ap.getLatitude();
+    double lon2=ap.getLongitude();
+
+    double dLat = (lat2 - lat1) *
+                  M_PI / 180.0;
+    double dLon = (lon2 - lon1) *
+                  M_PI / 180.0;
+
+    lat1 = (lat1) * M_PI / 180.0;
+    lat2 = (lat2) * M_PI / 180.0;
+
+    double a = pow(sin(dLat / 2), 2) +
+               pow(sin(dLon / 2), 2) *
+               cos(lat1) * cos(lat2);
+    double rad = 6371;
+    double c = 2 * asin(sqrt(a));
+    return ( (rad * c) <= range );
+}
+
+
 void Manager::mainMenu() {
     system("clear");
     cout << "\tMain Menu\n\n";
     vector<string> options{ "1. Browse Flights",
                             "2. Browse Airports",
+                            "3. Browse Airlines",
                             "0. Exit" };
     for (string s : options){
         cout << s << "\n";
@@ -83,6 +107,9 @@ void Manager::mainMenu() {
             break;
         case 2:
             airportsMenu();
+            break;
+        case 3:
+            airlinesMenu();
             break;
         default:
             system("clear");
@@ -358,4 +385,107 @@ void Manager::flightsBothAirportsMenu() {
     cin >> s;
     flightsMenu();
 }
+
+
+void Manager::airlinesMenu() {
+    system("clear");
+    cout << "\tAirlines Menu\n\n";
+    vector<string> options{ "1. Display All Airlines",
+                            "2. Browse Specific Airline",
+                            "0. Go Back" };
+    for (string s : options){
+        cout << s << "\n";
+    }
+    unsigned option;
+    cout << "Select an option: ";
+    cin >> option;
+    string aux;
+    AirLine al;
+    switch (option) {
+        case 0:
+            mainMenu();
+            break;
+        case 1:
+            system("clear");
+            cout << "\tAirlines Menu\n\n";
+            for(auto t = airlines.begin() ; t!=airlines.end() ; t++){
+                AirLine a=t->second;
+                cout << "\nCode: " << a.getCode() << "; Name: "<< a.getName() << "\n";
+            }
+            cout << "\n(Press any key + ENTER to continue)\n";
+            cin >> aux;
+            airlinesMenu();
+            break;
+        case 2:
+            system("clear");
+            cout << "\tAirlines Menu\n\n";
+            cout << "Airline Code: ";
+            cin >> aux;
+            al = airlines[aux];
+            specificAirlineMenu(al);
+            break;
+        default:
+            system("clear");
+            cout << "ERROR: invalid option!\n";
+            cout << "(Press any key + ENTER to continue)\n";
+            string a;
+            cin >> a;
+            airlinesMenu();
+            break;
+    }
+
+}
+
+void Manager::specificAirlineMenu(AirLine &al) {
+    system("clear");
+    cout << "\tAirline " << al.getName() << "Menu\n\n";
+    cout << "Code: " << al.getCode() << "\n";
+    cout << "Name: " << al.getName() << "\n";
+    cout << "Country: " << al.getCountry() << "\n";
+    cout << "Call-sign: " << al.getCallsign() << "\n";
+    vector<string> options{ "1. Display all flights",
+                            "0. Go Back" };
+    for (string s : options){
+        cout << s << "\n";
+    }
+    unsigned option;
+    cout << "Select an option: ";
+    cin >> option;
+    string aux;
+    long flights;
+    switch(option){
+        case 0:
+            airlinesMenu();
+            break;
+        case 1:
+            system("clear");
+            cout << "\tAirline " << al.getName() << "Menu\n\n";
+            flights= printAirlineFlights(al);
+            cout << "This airline has " << flights << " available flights!\n\n";
+            cout << "(Press any key + ENTER to continue)\n";
+            cin >> aux;
+            break;
+        default:
+            system("clear");
+            cout << "ERROR: invalid option!\n";
+            cout << "(Press any key + ENTER to continue)\n";
+            cin >> aux;
+            specificAirlineMenu(al);
+            break;
+    }
+}
+
+long Manager::printAirlineFlights(AirLine &al) {
+    long counter=0;
+    for(Node n:network.getNodes()){
+        for(Edge e:n.flights){
+            if ( e.flight.getAirline().getCode() == al.getCode() ){
+                e.flight.print();
+                counter++;
+            }
+        }
+    }
+    return counter;
+}
+
 
