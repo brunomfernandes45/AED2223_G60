@@ -21,12 +21,45 @@ struct Node {
 class Network {
     std::vector<Node> nodes;
 public:
+    /**
+     * @brief Default Constructor
+     */
     Network();
+    /**
+     * @brief Gets the nodes vector
+     * @return Returns the nodes vector
+     */
     std::vector<Node> getNodes();
+    /**
+     * @brief Adds an airport to the nodes vector
+     * Complexity: O(1)
+     * @param source Airport being added to the vector
+     */
     void addNode(Airport source);
+    /**
+     * @brief Adds a flight to the flights vector of its source airport
+     * Complexity: O(n)
+     * @param flight FLight being added
+     */
     void addFlight(Flight flight);
+    /**
+     * @brief Makes a depth-first-search
+     * Complexity: O(V + E), V being the number of airports and E the number of flights
+     * @param start Starting position of the search
+     */
     void dfs(std::string start);
+    /**
+     * @brief Makes a breadth-first-search
+     * Complexity: O(V + E), V being the number of airports and E the number of flights
+     * @param start Starting position of the search
+     */
     void bfs(std::string start);
+    /**
+    * @brief Makes a breadth-first-search with a limited number of flights
+    * Complexity: O(V + E), V being the number of airports and E the number of flights
+    * @param start Starting position of the search
+     * @param maxFlights Maximum of flights
+    */
     void bfsSpecial(std::string start, unsigned maxFlights);
     // double calculateDiameter();
 };
