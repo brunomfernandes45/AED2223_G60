@@ -3,7 +3,20 @@
 #include "Airport.cpp"
 #include "AirLine.cpp"
 #include "Network.cpp"
+#include <unordered_set>
 using namespace std;
+
+void removeWhitespace(string& str) {
+    auto it = find_if(str.begin(), str.end(), [](char c) {
+        return isspace(c);
+    });
+    while (it != str.end()) {
+        it = str.erase(it);
+        it = find_if(it, str.end(), [](char c) {
+            return isspace(c);
+        });
+    }
+}
 
 void Manager::readAirlines() {
     system("clear");
@@ -19,6 +32,8 @@ void Manager::readAirlines() {
             getline(iss, name, ',');
             getline(iss, callsign, ',');
             getline(iss, country);
+            removeWhitespace(name);
+            removeWhitespace(country);
             AirLine airline(code, name, callsign, country);
             airlines.emplace(code, airline);
         }
@@ -39,6 +54,9 @@ void Manager::readAirports() {
             getline(iss, country, ',');
             getline(iss, latitude, ',');
             getline(iss, longitude);
+            removeWhitespace(name);
+            removeWhitespace(city);
+            removeWhitespace(country);
             Airport airport(code, name, city, country, stof(latitude), stof(longitude));
             airports.emplace(code, airport);
             network.addNode(airport);
@@ -57,6 +75,8 @@ void Manager::readFlights() {
             getline(iss, source, ',');
             getline(iss, target, ',');
             getline(iss, code);
+            removeWhitespace(source);
+            removeWhitespace(target);
             Flight flight(airports[source], airports[target], airlines[code]);
             network.addFlight(flight);
         }
@@ -164,6 +184,7 @@ void Manager::airportsMenu() {
     cout << "\tAirports Menu\n\n";
     vector<string> options{"1. Browse Airports per city",
                            "2. Browse Airports per country",
+                           "3. Detailed info about an airport",
                            "0. Go Back!"};
     for (string s : options){
         cout << s << "\n";
@@ -179,7 +200,10 @@ void Manager::airportsMenu() {
             airportsCityMenu();
             break;
         case 2:
-            //airportsCountryMenu();
+            airportsCountryMenu();
+            break;
+        case 3:
+            searchForAirport();
             break;
         default:
             system("clear");
@@ -194,18 +218,69 @@ void Manager::airportsCityMenu() {
     string city;
     int n = 0;
     system("clear");
+    cout << "\t Airports by City Menu\n\n";
+    cout << "(Write the city in camel case, for example: NewYork)\n\n";
     cout << "Enter a city: ";
-    getline(cin, city);
-    for (auto node:network.getNodes()) {
+    cin >> city;
+    for (auto node: network.getNodes()) {
         if (city == node.source.getCity()) {
             node.source.shortPrint();
             n++;
         }
     }
     if (n > 0)
-        cout << "Number of airports in " << city << ": " << n << endl;
+        cout << "\nNumber of airports in " << city << ": " << n << endl;
     else
-        cout << "No airports found in this city\n";
+        cout << "\nNo airports found in this city\n";
+    cout << "\n(Press any key + ENTER to continue)\n";
+    string s;
+    cin >> s;
+    airportsMenu();
+}
+
+void Manager::airportsCountryMenu() {
+    string country;
+    int n = 0;
+    system("clear");
+    cout << "\tAirports by Country Menu\n\n";
+    cout << "(Write the countries in camel case, for example: UnitedStates)\n\n";
+    cout << "Enter a country: ";
+    cin >> country;
+    for (auto node:network.getNodes()) {
+        if (country == node.source.getCountry()) {
+            cout << node.source.getCity() << ", ";
+            node.source.shortPrint();
+            n++;
+        }
+    }
+    if (n > 0)
+        cout << "\nNumber of airports in " << country << ": " << n << endl;
+    else
+        cout << "No airports found in this country\n";
+    cout << "\n(Press any key + ENTER to continue)\n";
+    string s;
+    cin >> s;
+    airportsMenu();
+}
+
+void Manager::searchForAirport() {
+    string airport;
+    system("clear");
+    cout << "Airport code: ";
+    cin >> airport;
+    for (auto node: network.getNodes()) {
+        if (airport == node.source.getCode()) {
+            cout << "Location: " << node.source.getCountry() << ", " << node.source.getCity() << endl;
+            cout << "Coordinates: " << node.source.getLatitude() << " " << node.source.getLongitude() << "\n";
+            cout << node.source.getName() << " airport has " << airportAirlines(airport) << " unique airlines that have flights to/from it.\n";
+            cout << "There are " << countLeavingFlights(airport)
+            << " flights to " << countDestinationsCountries(airport) << " countries and "
+            << countDestinationsCities(airport) << " cities that leave " << node.source.getName()
+            << " and " << countArrivingFlights(airport) << " that land there, coming from "
+            << countArrivingCountries(airport) << " countries and "
+            << countArrivingCities(airport) << " cities.\n";
+        }
+    }
     cout << "\n(Press any key + ENTER to continue)\n";
     string s;
     cin >> s;
@@ -252,7 +327,7 @@ void Manager::flightsSourceAirportMenu() {
     cout << "\tFlights by Source Airport Menu\n\n";
     cout << "Source airport code: ";
     string source;
-    getline(cin, source);
+    cin >> source;
     system("clear");
     for (auto node : network.getNodes()) {
         if (node.source.getCode() == source) {
@@ -275,7 +350,7 @@ void Manager::flightsTargetAirportMenu() {
     cout << "\tFlights by Target Airport Menu\n\n";
     cout << "Target airport code: ";
     string target;
-    getline(cin, target);
+    cin >> target;
     system("clear");
     bool flag = true;
     for (auto node : network.getNodes()) {
@@ -298,28 +373,13 @@ void Manager::flightsTargetAirportMenu() {
 
 void Manager::flightsCityMenu() {
     system("clear");
-    string op1, op2, source, target;
-    cout << "Does the source city have more than one word? [y / n] ";
-    cin >> op1;
-    system("clear");
+    cout << "\tFlights by City Menu\n\n";
+    cout << "(Write the cities in camel case, for example: NewYork)\n\n";
+    string source, target;
     cout << "Source city: ";
-    if (op1 == "y") {
-        getline(cin, source);
-        cout << endl;
-    }
-    else {
-        cin >> source;
-    }
-    cin >> op2;
-    system("clear");
+    cin >> source;
     cout << "Target city: ";
-    if (op2 == "y") {
-        getline(cin, target);
-        cout << endl;
-    }
-    else {
-        cin >> target;
-    }
+    cin >> target;
     bool s, t = true;
     for (auto node : network.getNodes()) {
         if (node.source.getCity() == source) s = false;
@@ -370,14 +430,11 @@ void Manager::flightsBothAirportsMenu() {
     system("clear");
     cout << "\tFlights by Both Airports Menu\n\n";
     cout << "Source airport code: ";
-    cout << "Source airport code: ";
     string source;
-    getline(cin, source);
-    cout << "You entered: " << source << endl;
+    cin >> source;
     cout << "Target airport code: ";
     string target;
-    getline(cin, target);
-    cout << "You entered: " << target << endl;
+    cin >> target;
     system("clear");
     //print flights
     cout << "\n(Press any key + ENTER to continue)\n";
@@ -407,7 +464,6 @@ void Manager::airlinesMenu() {
             break;
         case 1:
             system("clear");
-            cout << "\tAirlines Menu\n\n";
             for(auto t = airlines.begin() ; t!=airlines.end() ; t++){
                 AirLine a=t->second;
                 cout << "\nCode: " << a.getCode() << "; Name: "<< a.getName() << "\n";
@@ -417,16 +473,24 @@ void Manager::airlinesMenu() {
             airlinesMenu();
             break;
         case 2:
-            system("clear");
-            cout << "\tAirlines Menu\n\n";
-            cout << "Airline Code: ";
-            cin >> aux;
+            while (airlines.find(aux) == airlines.end()) {
+                system("clear");
+                cout << "\tAirlines Menu\n\n";
+                cout << "Airline Code: ";
+                cin >> aux;
+                if (airlines.find(aux) == airlines.end()) {
+                    cout << "Error: Invalid airline code\n";
+                    cout << "\n(Press any key + ENTER to continue)\n";
+                    string a;
+                    cin >> a;
+                }
+            }
             al = airlines[aux];
             specificAirlineMenu(al);
             break;
         default:
             system("clear");
-            cout << "ERROR: invalid option!\n";
+            cout << "Error: Invalid option\n";
             cout << "(Press any key + ENTER to continue)\n";
             string a;
             cin >> a;
@@ -445,7 +509,7 @@ void Manager::specificAirlineMenu(AirLine &al) {
     cout << "Call-sign: " << al.getCallsign() << "\n";
     vector<string> options{ "1. Display all flights",
                             "0. Go Back" };
-    for (string s : options){
+    for (string s : options) {
         cout << s << "\n";
     }
     unsigned option;
@@ -464,6 +528,7 @@ void Manager::specificAirlineMenu(AirLine &al) {
             cout << "This airline has " << flights << " available flights!\n\n";
             cout << "(Press any key + ENTER to continue)\n";
             cin >> aux;
+            airlinesMenu();
             break;
         default:
             system("clear");
@@ -486,6 +551,91 @@ long Manager::printAirlineFlights(AirLine &al) {
         }
     }
     return counter;
+}
+
+int Manager::airportAirlines(string airport) {
+    unordered_set<string> airl;
+    for (auto node: network.getNodes()) {
+        if (airport == node.source.getCode()) {
+            for (auto e: node.flights) {
+                airl.insert(e.flight.getAirline().getCode());
+            }
+        }
+    }
+    return airl.size();
+}
+
+long Manager::countLeavingFlights(string airport) {
+    for (auto node: network.getNodes()) {
+        if (airport == node.source.getCode()) {
+            return node.flights.size();
+        }
+    }
+    return -1;
+}
+
+long Manager::countArrivingFlights(string airport) {
+    long count = 0;
+    for (auto node: network.getNodes()) {
+        if (airport != node.source.getCode()) {
+            for (auto e: node.flights) {
+                if(e.flight.getTarget().getCode() == airport) count++;
+            }
+        }
+    }
+    return count;
+}
+
+long Manager::countDestinationsCities(string airport) {
+    unordered_set<string> destinations;
+    for (auto node : network.getNodes()) {
+        if (airport == node.source.getCode()) {
+            for (auto e : node.flights) {
+                destinations.insert(e.flight.getTarget().getCity());
+            }
+        }
+    }
+    return destinations.size();
+}
+
+long Manager::countDestinationsCountries(string airport) {
+    unordered_set<string> destinations;
+    for (auto node : network.getNodes()) {
+        if (airport == node.source.getCode()) {
+            for (auto e : node.flights) {
+                destinations.insert(e.flight.getTarget().getCountry());
+            }
+        }
+    }
+    return destinations.size();
+}
+
+long Manager::countArrivingCities(string airport) {
+    unordered_set<string> arrivals;
+    for (auto node : network.getNodes()) {
+        if (airport != node.source.getCode()) {
+            for (auto e : node.flights) {
+                if (e.flight.getTarget().getCode() == airport) {
+                    arrivals.insert(e.flight.getSource().getCity());
+                }
+            }
+        }
+    }
+    return arrivals.size();
+}
+
+long Manager::countArrivingCountries(string airport) {
+    unordered_set<string> arrivals;
+    for (auto node : network.getNodes()) {
+        if (airport != node.source.getCode()) {
+            for (auto e : node.flights) {
+                if (e.flight.getTarget().getCode() == airport) {
+                    arrivals.insert(e.flight.getSource().getCountry());
+                }
+            }
+        }
+    }
+    return arrivals.size();
 }
 
 
