@@ -16,6 +16,8 @@ struct Node {
     std::list<Edge> flights;
     bool visited;
     long dist;
+    size_t prev;
+    std::list<Edge>::iterator prevFlight;
 };
 
 class Network {
@@ -61,6 +63,7 @@ public:
      * @param maxFlights Maximum of flights
     */
     void bfsSpecial(std::string start, unsigned maxFlights);
+    std::vector<Flight> bfsBestFlights(std::string start, std::string dest);
     // double calculateDiameter();
 };
 
