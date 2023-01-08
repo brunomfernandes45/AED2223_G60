@@ -45,6 +45,7 @@ class Manager {
         int airportAirlines(std::string airport);
         bool isInRange(double lat, double lon, Airport &ap, double range);
 
+        void infoCounters(std::string airport);
         long countLeavingFlights(std::string airport);
         long countArrivingFlights(std::string airport);
         long countDestinationsCountries(std::string airport);
