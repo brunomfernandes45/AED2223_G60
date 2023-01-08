@@ -124,7 +124,7 @@ void Network::bfsSpecial(std::string start, unsigned maxFlights) {
     << cities.size() << " cities and " << airports.size() << " airports.\n";
 }
 
-std::vector<Flight> Network::bfsBestFlights(std::string start, std::string dest) {
+std::vector<Flight> Network::bfsBestFlights(std::string start, std::string dest,std::string al) {
     for (Node &n:nodes) n.visited = false;
     std::queue<size_t> q;
     size_t startPos = 0;
@@ -155,6 +155,7 @@ std::vector<Flight> Network::bfsBestFlights(std::string start, std::string dest)
             return result;
         }
         for(auto flightIt = nodes[u].flights.begin(); flightIt != nodes[u].flights.end(); flightIt++) {
+            if(flightIt->flight.getAirline().getCode() != al && al!="000")continue;
             size_t w;
             for(size_t j = 0; j < nodes.size(); j++){
                 if(flightIt->flight.getTarget().getCode() == nodes[j].source.getCode()){

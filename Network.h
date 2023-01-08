@@ -60,10 +60,17 @@ public:
     * @brief Makes a breadth-first-search with a limited number of flights
     * Complexity: O(V + E), V being the number of airports and E the number of flights
     * @param start Starting position of the search
-     * @param maxFlights Maximum of flights
+    * @param maxFlights Maximum of flights
     */
     void bfsSpecial(std::string start, unsigned maxFlights);
-    std::vector<Flight> bfsBestFlights(std::string start, std::string dest);
+    /**
+     * @brief Makes a breadth-first-search to find the best flight from an airport to another
+     * @param start Source airport code
+     * @param dest Target airport code
+     * @param al Airline wanted
+     * @return Returns a vector with the best combination of flights
+     */
+    std::vector<Flight> bfsBestFlights(std::string start, std::string dest,std::string al);
     // double calculateDiameter();
 };
 
