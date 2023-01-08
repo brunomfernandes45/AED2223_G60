@@ -18,9 +18,8 @@ void \mbox{\hyperlink{classNetwork_afaa5dd2b92e46bc4b99f2a39807b0478}{bfs}} (std
 \begin{DoxyCompactList}\small\item\em Makes a breadth-\/first-\/search Complexity\+: O(V + E), V being the number of airports and E the number of flights. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classNetwork_aae33bf699a7f7491f4fae07a2317ea7d}{bfs\+Special}} (std\+::string start, unsigned max\+Flights)
 \begin{DoxyCompactList}\small\item\em Makes a breadth-\/first-\/search with a limited number of flights Complexity\+: O(V + E), V being the number of airports and E the number of flights. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classNetwork_acde7b5cdcff5bc1b9ea2a126120d6786}\label{classNetwork_acde7b5cdcff5bc1b9ea2a126120d6786}} 
-std\+::vector$<$ \mbox{\hyperlink{classFlight}{Flight}} $>$ {\bfseries bfs\+Best\+Flights} (std\+::string start, std\+::string dest)
-\end{DoxyCompactItemize}
+std\+::vector$<$ \mbox{\hyperlink{classFlight}{Flight}} $>$ \mbox{\hyperlink{classNetwork_af846f940ff121c8443805afed2cfb799}{bfs\+Best\+Flights}} (std\+::string start, std\+::string dest, std\+::string al)
+\begin{DoxyCompactList}\small\item\em Makes a breadth-\/first-\/search to find the best flight from an airport to another. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Function Documentation}
@@ -69,6 +68,28 @@ Makes a breadth-\/first-\/search Complexity\+: O(V + E), V being the number of a
 {\em start} & Starting position of the search \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{classNetwork_af846f940ff121c8443805afed2cfb799}\label{classNetwork_af846f940ff121c8443805afed2cfb799}} 
+\index{Network@{Network}!bfsBestFlights@{bfsBestFlights}}
+\index{bfsBestFlights@{bfsBestFlights}!Network@{Network}}
+\doxysubsubsection{\texorpdfstring{bfsBestFlights()}{bfsBestFlights()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classFlight}{Flight}} $>$ Network\+::bfs\+Best\+Flights (\begin{DoxyParamCaption}\item[{std\+::string}]{start,  }\item[{std\+::string}]{dest,  }\item[{std\+::string}]{al }\end{DoxyParamCaption})}
+
+
+
+Makes a breadth-\/first-\/search to find the best flight from an airport to another. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em start} & Source airport code \\
+\hline
+{\em dest} & Target airport code \\
+\hline
+{\em al} & Airline wanted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a vector with the best combination of flights 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classNetwork_aae33bf699a7f7491f4fae07a2317ea7d}\label{classNetwork_aae33bf699a7f7491f4fae07a2317ea7d}} 
 \index{Network@{Network}!bfsSpecial@{bfsSpecial}}
 \index{bfsSpecial@{bfsSpecial}!Network@{Network}}
