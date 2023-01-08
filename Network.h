@@ -15,6 +15,7 @@ struct Node {
     Airport source;
     std::list<Edge> flights;
     bool visited;
+    long dist;
 };
 
 class Network {
@@ -26,6 +27,8 @@ public:
     void addFlight(Flight flight);
     void dfs(std::string start);
     void bfs(std::string start);
+    void bfsSpecial(std::string start, unsigned maxFlights);
+    // double calculateDiameter();
 };
 
 

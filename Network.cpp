@@ -1,5 +1,8 @@
 #include "Network.h"
 #include <queue>
+#include <unordered_map>
+#include <set>
+#include <unordered_set>
 
 Network::Network() {
     nodes.reserve(3019);
@@ -54,7 +57,6 @@ void Network::bfs(std::string start) {
     size_t pos = 0;
     for (size_t i = 0; i < nodes.size(); i++) {
         if (nodes[i].source.getCode() == start) {
-            //nodes[i].source.shortPrint();
             pos = i;
             break;
         }
@@ -72,12 +74,104 @@ void Network::bfs(std::string start) {
                 }
             }
 
-            if(!nodes[w].visited){
+            if(!nodes[w].visited) {
                 q.push(w);
-                std::cout << nodes[w].source.getCode()<<"\n";
                 nodes[w].visited=true;
             }
-
         }
     }
 }
+
+void Network::bfsSpecial(std::string start, unsigned maxFlights) {
+    for (Node &n:nodes) n.visited = false;
+    std::queue<size_t> q;
+    std::unordered_set<size_t> airports;
+    std::unordered_set<std::string> cities;
+    std::unordered_set<std::string> countries;
+    size_t pos = 0;
+    for (size_t i = 0; i < nodes.size(); i++) {
+        if (nodes[i].source.getCode() == start) {
+            pos = i;
+            break;
+        }
+    }
+    q.push(pos);
+    nodes[pos].visited=true;
+    nodes[pos].dist = 0;
+    while (!q.empty() && nodes[q.front()].dist < maxFlights) {
+        int u=q.front();q.pop();
+        for(auto &e:nodes[u].flights){
+            size_t w;
+            for(size_t i=0;i<nodes.size();i++){
+                if(e.flight.getTarget().getCode()==nodes[i].source.getCode()){
+                    w=i;
+                    break;
+                }
+            }
+
+            if (!nodes[w].visited) {
+                q.push(w);
+                nodes[w].dist = nodes[u].dist + 1;
+                nodes[w].visited = true;
+                airports.insert(w);
+                cities.insert(nodes[w].source.getCity());
+                countries.insert(nodes[w].source.getCountry());
+            }
+        }
+    }
+    std::cout << "From " << nodes[pos].source.getName() << " airport, using a maximum of "
+    << maxFlights << " flights, you can reach " << countries.size() << " countries, "
+    << cities.size() << " cities and " << airports.size() << " airports.\n";
+}
+
+/*
+double Network::calculateDiameter() {
+    double maxDiameter = 0;
+    for (size_t i = 0; i < nodes.size(); i++) {
+        std::unordered_map<size_t, double> distances;
+        std::priority_queue<std::pair<double, size_t>, std::vector<std::pair<double, size_t>>, std::greater<std::pair<double, size_t>>> pq;
+
+        // initialize distances and priority queue
+        for (size_t j = 0; j < nodes.size(); j++) {
+            distances[j] = std::numeric_limits<double>::infinity();
+        }
+        distances[i] = 0;
+        pq.push({0, i});
+
+        // Dijkstra's algorithm
+        while (!pq.empty()) {
+            size_t u = pq.top().second;
+            pq.pop();
+
+            for (auto &e : nodes[u].flights) {
+                size_t v;
+                for (size_t k = 0; k < nodes.size(); k++) {
+                    if (e.flight.getTarget().getCode() == nodes[k].source.getCode()) {
+                        v = k;
+                        break;
+                    }
+                }
+                double distance = e.distance;
+                if (distances[v] > distances[u] + distance) {
+                    distances[v] = distances[u] + distance;
+                    pq.push({distances[v], v});
+                }
+            }
+        }
+
+        // find maximum distance from source node
+        for (const auto &pair : distances) {
+            double distance = pair.second;
+            if (distance > maxDiameter) {
+                maxDiameter = distance;
+            }
+        }
+    }
+    return maxDiameter;
+} */
+
+
+
+
+
+
