@@ -124,6 +124,57 @@ void Network::bfsSpecial(std::string start, unsigned maxFlights) {
     << cities.size() << " cities and " << airports.size() << " airports.\n";
 }
 
+std::vector<Flight> Network::bfsBestFlights(std::string start, std::string dest) {
+    for (Node &n:nodes) n.visited = false;
+    std::queue<size_t> q;
+    size_t startPos = 0;
+    size_t destPos = 0;
+    for (size_t i = 0; i < nodes.size(); i++) {
+        if (nodes[i].source.getCode() == start) {
+            startPos = i;
+        }
+        if (nodes[i].source.getCode() == dest) {
+            destPos = i;
+        }
+    }
+    q.push(startPos);
+    nodes[startPos].visited = true;
+    nodes[startPos].prevFlight = nodes[startPos].flights.end();
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
+        if (nodes[u].source.getCode() == dest) {
+            std::vector<Flight> result;
+            int curr = u;
+            auto flightIt = nodes[curr].prevFlight;
+            while (flightIt != nodes[curr].flights.end()) {
+                result.insert(result.begin(), flightIt -> flight);
+                curr = nodes[curr].prev;
+                flightIt = nodes[curr].prevFlight;
+            }
+            return result;
+        }
+        for(auto flightIt = nodes[u].flights.begin(); flightIt != nodes[u].flights.end(); flightIt++) {
+            size_t w;
+            for(size_t j = 0; j < nodes.size(); j++){
+                if(flightIt->flight.getTarget().getCode() == nodes[j].source.getCode()){
+                    w = j;
+                    break;
+                }
+            }
+            if(!nodes[w].visited) {
+                q.push(w);
+                nodes[w].visited = true;
+                nodes[w].prev = u;
+                nodes[w].prevFlight = flightIt;
+            }
+        }
+    }
+    return std::vector<Flight>();
+}
+
+
+
 /*
 double Network::calculateDiameter() {
     double maxDiameter = 0;
