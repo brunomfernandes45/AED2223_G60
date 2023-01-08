@@ -4,9 +4,11 @@
 #include "AirLine.cpp"
 #include "Network.cpp"
 #include <unordered_set>
+#include <algorithm>
+
 using namespace std;
 
-void removeWhitespace(string& str) {
+void Manager::removeWhitespace(string& str) {
     auto it = find_if(str.begin(), str.end(), [](char c) {
         return isspace(c);
     });
@@ -150,7 +152,6 @@ void Manager::flightsMenu() {
     vector<string> options{"1. Browse Flights by airport",
                            "2. Browse Flights by City",
                            "3. Browse Flights by coordinates",
-                           "4. Browse Flights by Airlines",
                            "0. Go Back!"};
     for (string s : options){
         cout << s << "\n";
@@ -170,9 +171,6 @@ void Manager::flightsMenu() {
             break;
         case 3:
             flightsCoordinatesMenu();
-            break;
-        case 4:
-            //flightsairlinesmenu();
             break;
         default:
             system("clear");
@@ -617,7 +615,6 @@ void Manager::statsMenu() {
     cout << "\tStats Menu\n\n";
     vector<string> options { "1. Global network statistics",
                              "2. Country statistics",
-                             "3. Airline statistics",
                              "0. Go back"};
     for (string s : options) {
         cout << s << endl;
@@ -634,9 +631,6 @@ void Manager::statsMenu() {
             break;
         case 2:
             countryStatsMenu();
-            break;
-        case 3:
-            airlineStatsMenu();
             break;
         default:
             system("clear");
@@ -665,22 +659,20 @@ void Manager::countryStatsMenu() {
     string country;
     cout << "Insert the country: ";
     cin >> country;
+    long arrivingFlights, departingFlights, al=0;
+    for( Node n: network.getNodes() ){
+        for(Edge f : n.flights){
+            if( f.flight.getSource().getCountry()==country) departingFlights++;
+            else if ( f.flight.getTarget().getCountry()==country ) arrivingFlights++;
+        }
+    }
+    for(auto it=airlines.begin();it!=airlines.end();it++){
+        if(it->second.getCountry()==country) al++;
+    }
+    cout << "Airlines: " << al << "\nDeparting Flights: " << departingFlights << "\nArriving Flights: " << arrivingFlights << "\n";
     cout << "(Press any key + ENTER to continue)\n";
     string a;
     cin >> a;
-    statsMenu();
-}
-
-void Manager::airlineStatsMenu() {
-    system("clear");
-    cout << "\tAirline Stats Menu\n\n";
-    string code;
-    cout << "Insert the airline code: ";
-    cin >> code;
-    cout << "(Press any key + ENTER to continue)\n";
-    string a;
-    cin >> a;
-
     statsMenu();
 }
 
