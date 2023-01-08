@@ -71,7 +71,6 @@ public:
      * @return Returns a vector with the best combination of flights
      */
     std::vector<Flight> bfsBestFlights(std::string start, std::string dest,std::string al);
-    // double calculateDiameter();
 };
 
 
