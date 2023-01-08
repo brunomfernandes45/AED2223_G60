@@ -303,13 +303,19 @@ void Manager::searchForAirport() {
     system("clear");
     cout << "Airport code: ";
     cin >> airport;
+    bool flag=true;
     for (auto node: network.getNodes()) {
         if (airport == node.source.getCode()) {
-            cout << "Location: " << node.source.getCountry() << ", " << node.source.getCity() << endl;
+            cout << "\nLocation: " << node.source.getCountry() << ", " << node.source.getCity() << endl;
             cout << "Coordinates: " << node.source.getLatitude() << " " << node.source.getLongitude() << "\n";
             cout << node.source.getName() << " airport has " << airportAirlines(airport) << " unique airlines that have flights to/from it.\n";
             infoCounters(airport);
+            flag=false;
         }
+    }
+    if(flag){
+        system("clear");
+        cout << "\nError: Invalid Input!\n";
     }
     cout << "\n(Press any key + ENTER to continue)\n";
     string s;
@@ -723,7 +729,17 @@ void Manager::statsMenu() {
 void Manager::globalStatsMenu() {
     system("clear");
     cout << "\tGlobal Statistics\n\n";
-    cout << "(Press any key + ENTER to continue)\n";
+    int totalFlights=0, totalAirports=network.getNodes().size(), totalAirlines=airlines.size(), mostLeaving=0;
+    string mostL;
+    for(Node n:network.getNodes()){
+        totalFlights+=n.flights.size();
+        if(n.flights.size()>mostLeaving){ mostLeaving=n.flights.size(); mostL=n.source.getName();}
+    }
+    cout << "Total Airlines: " << totalAirlines;
+    cout << "\nTotal Airports: " << totalAirports;
+    cout << "\nTotal Flights: " << totalFlights;
+    cout << "\nAirport with most departing flights: " << mostL << " (" << mostLeaving << " flights)\n";
+    cout << "\n(Press any key + ENTER to continue)\n";
     string a;
     cin >> a;
     statsMenu();
@@ -736,7 +752,7 @@ void Manager::countryStatsMenu() {
     string country;
     cout << "Insert the country: ";
     cin >> country;
-    long arrivingFlights, departingFlights, al=0;
+    long arrivingFlights=0, departingFlights=0, al=0;
     for( Node n: network.getNodes() ){
         for(Edge f : n.flights){
             if( f.flight.getSource().getCountry()==country) departingFlights++;
@@ -746,8 +762,8 @@ void Manager::countryStatsMenu() {
     for(auto it=airlines.begin();it!=airlines.end();it++){
         if(it->second.getCountry()==country) al++;
     }
-    cout << "Airlines: " << al << "\nDeparting Flights: " << departingFlights << "\nArriving Flights: " << arrivingFlights << "\n";
-    cout << "(Press any key + ENTER to continue)\n";
+    cout << "\nAirlines: " << al << "\nDeparting Flights: " << departingFlights << "\nArriving Flights: " << arrivingFlights << "\n";
+    cout << "\n(Press any key + ENTER to continue)\n";
     string a;
     cin >> a;
     statsMenu();

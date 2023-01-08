@@ -93,9 +93,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aae33bf699a7f7491f4fae07a2317ea7d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNetwork.html#aae33bf699a7f7491f4fae07a2317ea7d">bfsSpecial</a> (std::string start, unsigned maxFlights)</td></tr>
 <tr class="memdesc:aae33bf699a7f7491f4fae07a2317ea7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes a breadth-first-search with a limited number of flights Complexity: O(V + E), V being the number of airports and E the number of flights.  <a href="classNetwork.html#aae33bf699a7f7491f4fae07a2317ea7d">More...</a><br /></td></tr>
 <tr class="separator:aae33bf699a7f7491f4fae07a2317ea7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acde7b5cdcff5bc1b9ea2a126120d6786"><td class="memItemLeft" align="right" valign="top"><a id="acde7b5cdcff5bc1b9ea2a126120d6786"></a>
-std::vector&lt; <a class="el" href="classFlight.html">Flight</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>bfsBestFlights</b> (std::string start, std::string dest)</td></tr>
-<tr class="separator:acde7b5cdcff5bc1b9ea2a126120d6786"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af846f940ff121c8443805afed2cfb799"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classFlight.html">Flight</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNetwork.html#af846f940ff121c8443805afed2cfb799">bfsBestFlights</a> (std::string start, std::string dest, std::string al)</td></tr>
+<tr class="memdesc:af846f940ff121c8443805afed2cfb799"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes a breadth-first-search to find the best flight from an airport to another.  <a href="classNetwork.html#af846f940ff121c8443805afed2cfb799">More...</a><br /></td></tr>
+<tr class="separator:af846f940ff121c8443805afed2cfb799"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a663ec6914cd62050e87acdb94706e36d"></a>
@@ -173,6 +173,51 @@ std::vector&lt; <a class="el" href="classFlight.html">Flight</a> &gt;&#160;</td>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="af846f940ff121c8443805afed2cfb799"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af846f940ff121c8443805afed2cfb799">&#9670;&nbsp;</a></span>bfsBestFlights()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="classFlight.html">Flight</a> &gt; Network::bfsBestFlights </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>al</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Makes a breadth-first-search to find the best flight from an airport to another. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">start</td><td>Source airport code </td></tr>
+    <tr><td class="paramname">dest</td><td>Target airport code </td></tr>
+    <tr><td class="paramname">al</td><td>Airline wanted </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns a vector with the best combination of flights </dd></dl>
 
 </div>
 </div>
