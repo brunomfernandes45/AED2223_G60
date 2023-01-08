@@ -12,47 +12,44 @@
 #define AED2223_G60_MANAGER_H
 
 class Manager {
-    private:
-        std::unordered_map<std::string, Airport> airports;
-        std::unordered_map<std::string, AirLine> airlines;
-        Network network;
-    public:
-        //readers
-        void readAirlines();
-        void readAirports();
-        void readFlights();
+private:
+    std::unordered_map<std::string, Airport> airports;
+    std::unordered_map<std::string, AirLine> airlines;
+    Network network;
+public:
+    void readAirlines();
+    void readAirports();
+    void readFlights();
 
-        //menus
-        void mainMenu();
+    void mainMenu();
 
-        void airportsMenu();
-        void airportsCityMenu();
-        void airportsCountryMenu();
-        void searchForAirport();
+    void airportsMenu();
+    void airportsNameMenu();
+    void airportsCityMenu();
+    void airportsCountryMenu();
+    void searchForAirport();
+    void nFlightsMenu();
 
-        void flightsMenu();
-        void flightsAirportMenu();
-        void flightsCityMenu();
-        void flightsCoordinatesMenu();
-        void flightsSourceAirportMenu();
-        void flightsTargetAirportMenu();
-        void flightsBothAirportsMenu();
+    void flightsMenu();
+    void flightsAirportMenu();
+    void flightsCityMenu();
+    void flightsCoordinatesMenu();
+    void flightsSourceAirportMenu();
+    void flightsTargetAirportMenu();
+    void flightsBothAirportsMenu();
 
-        void airlinesMenu();
-        void specificAirlineMenu(AirLine &al);
+    void airlinesMenu();
+    void specificAirlineMenu(AirLine &al);
 
-        long printAirlineFlights(AirLine &al);
-        int airportAirlines(std::string airport);
-        bool isInRange(double lat, double lon, Airport &ap, double range);
+    void statsMenu();
+    void globalStatsMenu();
+    void countryStatsMenu();
+    void airlineStatsMenu();
 
-        void infoCounters(std::string airport);
-        long countLeavingFlights(std::string airport);
-        long countArrivingFlights(std::string airport);
-        long countDestinationsCountries(std::string airport);
-        long countDestinationsCities(std::string airport);
-        long countArrivingCountries(std::string airport);
-        long countArrivingCities(std::string airport);
-
+    long printAirlineFlights(AirLine &al);
+    int airportAirlines(std::string airport);
+    bool isInRange(double lat, double lon, Airport &ap, double range);
+    void infoCounters(std::string airport);
 };
 
 #endif //AED2223_G60_MANAGER_H

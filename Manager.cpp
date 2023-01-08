@@ -112,6 +112,7 @@ void Manager::mainMenu() {
     vector<string> options{ "1. Browse Flights",
                             "2. Browse Airports",
                             "3. Browse Airlines",
+                            "4. Statistics",
                             "0. Exit" };
     for (string s : options){
         cout << s << "\n";
@@ -130,6 +131,9 @@ void Manager::mainMenu() {
             break;
         case 3:
             airlinesMenu();
+            break;
+        case 4:
+            statsMenu();
             break;
         default:
             system("clear");
@@ -182,10 +186,12 @@ void Manager::flightsMenu() {
 void Manager::airportsMenu() {
     system("clear");
     cout << "\tAirports Menu\n\n";
-    vector<string> options{"1. Browse Airports per city",
-                           "2. Browse Airports per country",
-                           "3. Detailed info about an airport",
-                           "0. Go Back!"};
+    vector<string> options{ "1. Search airport by name",
+                            "2. Browse Airports per city",
+                            "3. Browse Airports per country",
+                            "4. Detailed info about an airport",
+                            "5. See where you can go using n flights",
+                            "0. Go Back!" };
     for (string s : options){
         cout << s << "\n";
     }
@@ -197,13 +203,19 @@ void Manager::airportsMenu() {
             mainMenu();
             break;
         case 1:
-            airportsCityMenu();
+            airportsNameMenu();
             break;
         case 2:
-            airportsCountryMenu();
+            airportsCityMenu();
             break;
         case 3:
+            airportsCountryMenu();
+            break;
+        case 4:
             searchForAirport();
+            break;
+        case 5:
+            nFlightsMenu();
             break;
         default:
             system("clear");
@@ -214,11 +226,36 @@ void Manager::airportsMenu() {
     }
 }
 
+void Manager::airportsNameMenu() {
+    system("clear");
+    cout << "\tAirports by Name Menu\n\n";
+    cout << "(Write the name in camel case, for example: JohnFKennedyIntl)\n\n";
+    string name;
+    cout << "Insert the name of the airport: ";
+    cin >> name;
+    bool flag = true;
+    for (auto node : network.getNodes()) {
+        if (node.source.getName() == name) {
+            node.source.print();
+            flag = false;
+            break;
+        }
+    }
+    if (flag) {
+        system("clear");
+        cout << "Error: Invalid name\n";
+    }
+    cout << "\n(Press any key + ENTER to continue)\n";
+    string s;
+    cin >> s;
+    airportsMenu();
+}
+
 void Manager::airportsCityMenu() {
     string city;
     int n = 0;
     system("clear");
-    cout << "\t Airports by City Menu\n\n";
+    cout << "\tAirports by City Menu\n\n";
     cout << "(Write the city in camel case, for example: NewYork)\n\n";
     cout << "Enter a city: ";
     cin >> city;
@@ -282,6 +319,21 @@ void Manager::searchForAirport() {
     airportsMenu();
 }
 
+void Manager::nFlightsMenu() {
+    system("clear");
+    string source;
+    cout << "Insert source airport code: ";
+    cin >> source;
+    unsigned maxFlights;
+    cout << "Insert maximum flights: ";
+    cin >> maxFlights;
+    network.bfsSpecial(source, maxFlights);
+    cout << "\n(Press any key + ENTER to continue)\n";
+    string s;
+    cin >> s;
+    airportsMenu();
+}
+
 void Manager::flightsAirportMenu() {
     system("clear");
     cout << "\tFlights by Airport Menu\n\n";
@@ -310,7 +362,7 @@ void Manager::flightsAirportMenu() {
             break;
         default:
             system("clear");
-            cout << "ERROR: Invalid option\n(Press any key + ENTER to continue)\n";
+            cout << "Error: Invalid option\n(Press any key + ENTER to continue)\n";
             string s;
             cin >> s;
             flightsAirportMenu();
@@ -501,7 +553,7 @@ void Manager::specificAirlineMenu(AirLine &al) {
     cout << "Code: " << al.getCode() << "\n";
     cout << "Name: " << al.getName() << "\n";
     cout << "Country: " << al.getCountry() << "\n";
-    cout << "Call-sign: " << al.getCallsign() << "\n";
+    cout << "Call-sign: " << al.getCallsign() << "\n\n";
     vector<string> options{ "1. Display all flights",
                             "0. Go Back" };
     for (string s : options) {
@@ -535,6 +587,77 @@ void Manager::specificAirlineMenu(AirLine &al) {
     }
 }
 
+void Manager::statsMenu() {
+    system("clear");
+    cout << "\tStats Menu\n\n";
+    vector<string> options { "1. Global network statistics",
+                             "2. Country statistics",
+                             "3. Airline statistics",
+                             "0. Go back"};
+    for (string s : options) {
+        cout << s << endl;
+    }
+    unsigned option;
+    cout << "Select an option: ";
+    cin >> option;
+    switch (option) {
+        case 0:
+            mainMenu();
+            break;
+        case 1:
+            globalStatsMenu();
+            break;
+        case 2:
+            countryStatsMenu();
+            break;
+        case 3:
+            airlineStatsMenu();
+            break;
+        default:
+            system("clear");
+            cout << "ERROR: invalid option!\n";
+            cout << "(Press any key + ENTER to continue)\n";
+            string a;
+            cin >> a;
+            statsMenu();
+            break;
+    }
+}
+
+void Manager::globalStatsMenu() {
+    system("clear");
+    cout << "\tGlobal Statistics\n\n";
+    cout << "(Press any key + ENTER to continue)\n";
+    string a;
+    cin >> a;
+    statsMenu();
+}
+
+void Manager::countryStatsMenu() {
+    system("clear");
+    cout << "\tCountry Stats Menu\n\n";
+    cout << "(Write the countries in camel case, for example: UnitedStates)\n\n";
+    string country;
+    cout << "Insert the country: ";
+    cin >> country;
+    cout << "(Press any key + ENTER to continue)\n";
+    string a;
+    cin >> a;
+    statsMenu();
+}
+
+void Manager::airlineStatsMenu() {
+    system("clear");
+    cout << "\tAirline Stats Menu\n\n";
+    string code;
+    cout << "Insert the airline code: ";
+    cin >> code;
+    cout << "(Press any key + ENTER to continue)\n";
+    string a;
+    cin >> a;
+    statsMenu();
+}
+
 long Manager::printAirlineFlights(AirLine &al) {
     long counter=0;
     for(Node n:network.getNodes()){
@@ -558,79 +681,6 @@ int Manager::airportAirlines(string airport) {
         }
     }
     return airl.size();
-}
-
-long Manager::countLeavingFlights(string airport) {
-    for (auto node: network.getNodes()) {
-        if (airport == node.source.getCode()) {
-            return node.flights.size();
-        }
-    }
-    return -1;
-}
-
-long Manager::countArrivingFlights(string airport) {
-    long count = 0;
-    for (auto node: network.getNodes()) {
-        if (airport != node.source.getCode()) {
-            for (auto e: node.flights) {
-                if(e.flight.getTarget().getCode() == airport) count++;
-            }
-        }
-    }
-    return count;
-}
-
-long Manager::countDestinationsCities(string airport) {
-    unordered_set<string> destinations;
-    for (auto node : network.getNodes()) {
-        if (airport == node.source.getCode()) {
-            for (auto e : node.flights) {
-                destinations.insert(e.flight.getTarget().getCity());
-            }
-        }
-    }
-    return destinations.size();
-}
-
-long Manager::countDestinationsCountries(string airport) {
-    unordered_set<string> destinations;
-    for (auto node : network.getNodes()) {
-        if (airport == node.source.getCode()) {
-            for (auto e : node.flights) {
-                destinations.insert(e.flight.getTarget().getCountry());
-            }
-        }
-    }
-    return destinations.size();
-}
-
-long Manager::countArrivingCities(string airport) {
-    unordered_set<string> arrivals;
-    for (auto node : network.getNodes()) {
-        if (airport != node.source.getCode()) {
-            for (auto e : node.flights) {
-                if (e.flight.getTarget().getCode() == airport) {
-                    arrivals.insert(e.flight.getSource().getCity());
-                }
-            }
-        }
-    }
-    return arrivals.size();
-}
-
-long Manager::countArrivingCountries(string airport) {
-    unordered_set<string> arrivals;
-    for (auto node : network.getNodes()) {
-        if (airport != node.source.getCode()) {
-            for (auto e : node.flights) {
-                if (e.flight.getTarget().getCode() == airport) {
-                    arrivals.insert(e.flight.getSource().getCountry());
-                }
-            }
-        }
-    }
-    return arrivals.size();
 }
 
 void Manager::infoCounters(string airport) {
