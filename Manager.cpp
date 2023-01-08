@@ -273,12 +273,7 @@ void Manager::searchForAirport() {
             cout << "Location: " << node.source.getCountry() << ", " << node.source.getCity() << endl;
             cout << "Coordinates: " << node.source.getLatitude() << " " << node.source.getLongitude() << "\n";
             cout << node.source.getName() << " airport has " << airportAirlines(airport) << " unique airlines that have flights to/from it.\n";
-            cout << "There are " << countLeavingFlights(airport)
-            << " flights to " << countDestinationsCountries(airport) << " countries and "
-            << countDestinationsCities(airport) << " cities that leave " << node.source.getName()
-            << " and " << countArrivingFlights(airport) << " that land there, coming from "
-            << countArrivingCountries(airport) << " countries and "
-            << countArrivingCities(airport) << " cities.\n";
+            infoCounters(airport);
         }
     }
     cout << "\n(Press any key + ENTER to continue)\n";
@@ -638,4 +633,34 @@ long Manager::countArrivingCountries(string airport) {
     return arrivals.size();
 }
 
-
+void Manager::infoCounters(string airport) {
+    long arrivingFlights = 0, leavingFlights = 0;
+    unordered_set<string> arrivalsCities;
+    unordered_set<string> arrivalsCountries;
+    unordered_set<string> destinationsCities;
+    unordered_set<string> destinationsCountries;
+    for (auto node : network.getNodes()) {
+        if (airport == node.source.getCode()) {
+            for (auto e : node.flights) {
+                destinationsCities.insert(e.flight.getTarget().getCity());
+                destinationsCountries.insert(e.flight.getTarget().getCountry());
+            }
+            leavingFlights = node.flights.size();
+        }
+        else {
+            for (auto e : node.flights) {
+                if (e.flight.getTarget().getCode() == airport) {
+                    arrivalsCities.insert(e.flight.getSource().getCity());
+                    arrivalsCountries.insert(e.flight.getSource().getCountry());
+                    arrivingFlights++;
+                }
+            }
+        }
+    }
+    cout << "There are " << leavingFlights
+         << " flights to " << destinationsCountries.size() << " countries and "
+         << destinationsCities.size() << " cities that leave and " << arrivingFlights
+         << " that land there, coming from "
+         << arrivalsCountries.size() << " countries and "
+         << arrivalsCities.size() << " cities.\n";
+}
