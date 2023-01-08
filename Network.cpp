@@ -1,4 +1,5 @@
 #include "Network.h"
+#include <queue>
 
 Network::Network() {
     nodes.reserve(3019);

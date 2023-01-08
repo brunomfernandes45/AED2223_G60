@@ -6,11 +6,6 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include <thread>
-#include <queue>
-#include <functional>
-#include <mutex>
-#include <condition_variable>
 #include <unordered_map>
 
 #ifndef AED2223_G60_MANAGER_H
@@ -21,8 +16,6 @@ class Manager {
         std::unordered_map<std::string, Airport> airports;
         std::unordered_map<std::string, AirLine> airlines;
         Network network;
-        std::mutex airport_mutex;
-        std::mutex airline_mutex;
     public:
         //readers
         void readAirlines();
@@ -34,6 +27,8 @@ class Manager {
 
         void airportsMenu();
         void airportsCityMenu();
+        void airportsCountryMenu();
+        void searchForAirport();
 
         void flightsMenu();
         void flightsAirportMenu();
@@ -47,64 +42,16 @@ class Manager {
         void specificAirlineMenu(AirLine &al);
 
         long printAirlineFlights(AirLine &al);
+        int airportAirlines(std::string airport);
         bool isInRange(double lat, double lon, Airport &ap, double range);
 
-};
-/*
-class thread_pool {
-public:
-    explicit thread_pool(size_t num_threads) : m_done(false) {
-        for (size_t i = 0; i < num_threads; ++i) {
-            m_threads.emplace_back([this] {
-                while (true) {
-                    std::function<void()> task;
-                    {
-                        std::unique_lock<std::mutex> lock(m_mutex);
-                        m_cv.wait(lock, [this] { return m_done || !m_tasks.empty(); });
-                        if (m_done && m_tasks.empty()) {
-                            return;
-                        }
-                        task = std::move(m_tasks.front());
-                        m_tasks.pop();
-                    }
-                    task();
-                }
-            });
-        }
-    }
+        long countLeavingFlights(std::string airport);
+        long countArrivingFlights(std::string airport);
+        long countDestinationsCountries(std::string airport);
+        long countDestinationsCities(std::string airport);
+        long countArrivingCountries(std::string airport);
+        long countArrivingCities(std::string airport);
 
-    ~thread_pool() {
-        {
-            std::unique_lock<std::mutex> lock(m_mutex);
-            m_done = true;
-        }
-        m_cv.notify_all();
-        for (std::thread& t : m_threads) {
-            t.join();
-        }
-    }
-
-    template <typename F>
-    void enqueue(F&& f) {
-        {
-            std::unique_lock<std::mutex> lock(m_mutex);
-            m_tasks.emplace(std::forward<F>(f));
-        }
-        m_cv.notify_one();
-    }
-
-    void wait() {
-        std::unique_lock<std::mutex> lock(m_mutex);
-        m_cv.wait(lock, [this] { return m_tasks.empty(); });
-    }
-
-private:
-    std::vector<std::thread> m_threads;
-    std::queue<std::function<void()>> m_tasks;
-    std::mutex m_mutex;
-    std::condition_variable m_cv;
-    bool m_done;
 };
 
-*/
 #endif //AED2223_G60_MANAGER_H
