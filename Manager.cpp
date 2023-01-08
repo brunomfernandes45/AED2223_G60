@@ -655,7 +655,7 @@ void Manager::airlinesMenu() {
 
 void Manager::specificAirlineMenu(AirLine &al) {
     system("clear");
-    cout << "\tAirline " << al.getName() << "Menu\n\n";
+    cout << "\tAirline " << al.getName() << " Menu\n\n";
     cout << "Code: " << al.getCode() << "\n";
     cout << "Name: " << al.getName() << "\n";
     cout << "Country: " << al.getCountry() << "\n";
